@@ -851,32 +851,61 @@ def student_appeal_again(request):
         student = InfoStudent.objects.get(emailSV=user.email)
 
         if request.method == 'POST':
-            title = request.POST.get('title')
-            content = request.POST.get('content')
-            evidence = request.FILES.get('evidence')
+            complaint_type = request.POST.get('complaintType')
+            reason = request.POST.get('complaintReason')
             semester_id = request.POST.get('semester')
-            semester = HocKy.objects.get(pk=semester_id)
+            evidence = request.FILES.getlist('attachment')
 
+            # Validation
+            if not all([complaint_type, reason, semester_id]):
+                messages.error(request, 'Vui lòng điền đầy đủ thông tin bắt buộc')
+                return redirect('app_nckh9:student_appeal_again')
+
+            try:
+                semester = HocKy.objects.get(pk=semester_id)
+            except HocKy.DoesNotExist:
+                messages.error(request, 'Học kỳ không hợp lệ')
+                return redirect('app_nckh9:student_appeal_again')
+
+            # File validation
+            if evidence:
+                for file in evidence:
+                    if file.size > 5 * 1024 * 1024:  # 5MB limit
+                        messages.error(request, f'File {file.name} vượt quá kích thước cho phép (5MB)')
+                        return redirect('app_nckh9:student_appeal_again')
+                    
+                    ext = file.name.split('.')[-1].lower()
+                    if ext not in ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']:
+                        messages.error(request, f'File {file.name} không đúng định dạng cho phép')
+                        return redirect('app_nckh9:student_appeal_again')
+
+            # Create report
             report = StudentsReport(
-                title=title,
-                content=content,
+                title=f'Khiếu nại điểm - {complaint_type}',
+                content=reason,
                 student=student,
-                semester=semester,
-                evidence=evidence
+                semester=semester
             )
+            
+            if evidence:
+                report.evidence = evidence[0]  # Save first file as main evidence
+            
             report.save()
-            messages.success(request, 'Đơn phúc khảo của bạn đã được gửi thành công!')
+            messages.success(request, 'Đơn khiếu nại của bạn đã được gửi thành công!')
             return redirect('app_nckh9:student_dashboard')
 
+        # Lấy danh sách học kỳ
+        semesters = HocKy.objects.all().order_by('-nam_hoc', '-hoc_ky')
         context = {
             'student': student,
-            'semesters': HocKy.objects.all()
+            'semesters': semesters,
+            'max_upload_size': 5  # 5MB
         }
         return render(request, 'students/appeal_again.html', context)
+
     except InfoStudent.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin sinh viên')
         return redirect('app_nckh9:student_dashboard')
-
 # teacher clone view
 @login_required
 def teacher_dashboard(request):
@@ -1305,3 +1334,30 @@ def add_notification(request):
         form = NotificationForm()
     return render(request, 'students/add_notification.html', {'form': form})
 
+def lop_hoc_list(request):
+    """Hiển thị danh sách các lớp học"""
+    lop_hoc_list = LopHoc.objects.all().order_by('-khoa_hoc', 'khoa', 'ma_lop')
+    return render(request, 'app_nckh9/lop_hoc_list.html', {'lop_hoc_list': lop_hoc_list})
+
+def add_student_to_class(request, ma_lop):
+    lop_hoc = get_object_or_404(LopHoc, ma_lop=ma_lop)
+    
+    if request.method == 'POST':
+        form = AddStudentToClassForm(request.POST)
+        if form.is_valid():
+            student = form.cleaned_data['student']
+            if lop_hoc.so_luong_sv_hien_tai() < lop_hoc.si_so_toi_da:
+                student.lop_hoc = lop_hoc
+                student.save()
+                messages.success(request, f'Đã thêm sinh viên {student.tenSV} vào lớp {lop_hoc.ten_lop}')
+                return redirect('app_nckh9:lop_hoc_list')
+            else:
+                messages.error(request, 'Lớp học đã đầy, không thể thêm sinh viên')
+    else:
+        form = AddStudentToClassForm()
+    
+    context = {
+        'form': form,
+        'lop_hoc': lop_hoc,
+    }
+    return render(request, 'app_nckh9/add_student_to_class.html', context)

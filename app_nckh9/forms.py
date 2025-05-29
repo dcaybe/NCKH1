@@ -190,3 +190,13 @@ class HistoryPointForm(forms.ModelForm):
             **{f'hocky{i}': forms.NumberInput(attrs={'class': 'form-control'}) 
                for i in range(1, 21)}
         }
+
+
+class AddStudentToClassForm(forms.Form):
+    student = forms.ModelChoiceField(
+        queryset=InfoStudent.objects.filter(lop_hoc__isnull=True),
+        label="Chọn sinh viên"
+    )
+    
+    class Meta:
+        fields = ['student']

@@ -3,26 +3,34 @@ from django.utils import timezone
 
 class InfoStudent(models.Model):
     khoaHoc = models.IntegerField(default=2023)
-    maSV = models.IntegerField()
+    maSV = models.IntegerField(unique=True)
     tenSV = models.CharField(max_length=255)
-    lopSV = models.CharField(max_length=255)
+    lopSV = models.CharField(max_length=255)  # Giữ lại để tương thích ngược
     gender = models.CharField(max_length=255)
     dob = models.DateField()
     phone = models.IntegerField()
-    emailSV = models.EmailField()
-    status = models.CharField(max_length=255)
+    emailSV = models.EmailField(unique=True)
+    status = models.CharField(max_length=255, default='Đang học')
     address = models.CharField(max_length=255)
     chuyenNganh = models.CharField(max_length=255)
     khoaSV = models.CharField(max_length=255)
     nienkhoa = models.CharField(max_length=255)
     heDaoTao = models.CharField(max_length=255)
-    coVanHocTap = models.CharField(max_length=255)
-    tkCoVan = models.CharField(max_length=255)
-    emialCoVan = models.EmailField()
-    phoneCoVan = models.IntegerField()
-    boMonCoVan = models.CharField(max_length=255)
-    ketqua = models.JSONField()
-    semester = models.CharField(max_length=255)
+    coVanHocTap = models.CharField(max_length=255, blank=True, null=True)
+    tkCoVan = models.CharField(max_length=255, blank=True, null=True)
+    emialCoVan = models.EmailField(blank=True, null=True)
+    phoneCoVan = models.IntegerField(blank=True, null=True)
+    boMonCoVan = models.CharField(max_length=255, blank=True, null=True)
+    ketqua = models.JSONField(default=dict)
+    semester = models.CharField(max_length=255, blank=True, null=True)
+    lop_hoc = models.ForeignKey(
+        'LopHoc',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='danh_sach_sinh_vien',
+        verbose_name="Lớp học"
+    )
 
     def __str__(self):
         return f"{self.maSV} - {self.tenSV}"
@@ -211,6 +219,7 @@ class PrivateNofitication(models.Model):
     picture5 = models.ImageField(upload_to="uploads/")
 
 class StudentsReport(models.Model):
+    muckhieunai = models.CharField(max_length=255,default='khac')
     title = models.CharField(max_length=255)
     content = models.TextField(default='')
     created_at = models.DateTimeField(default=timezone.now)
@@ -406,6 +415,49 @@ class AsyncSyncTask(models.Model):
     failed_records = models.IntegerField(default=0)
     errors = models.JSONField(default=list)
     last_sync_time = models.DateTimeField(null=True, blank=True)
+
+class LopHoc(models.Model):
+    ma_lop = models.CharField(max_length=20, unique=True, verbose_name="Mã lớp")
+    ten_lop = models.CharField(max_length=100, verbose_name="Tên lớp")
+    khoa = models.CharField(max_length=100, verbose_name="Khoa")
+    khoa_hoc = models.IntegerField(verbose_name="Khóa học")
+    giao_vien_chu_nhiem = models.ForeignKey(
+        'InfoTeacher',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='lop_chu_nhiem',
+        verbose_name="Giáo viên chủ nhiệm"
+    )
+    si_so_toi_da = models.PositiveSmallIntegerField(default=125, verbose_name="Sĩ số tối đa")
+    mo_ta = models.TextField(blank=True, null=True, verbose_name="Mô tả")
+    ngay_tao = models.DateTimeField(auto_now_add=True, verbose_name="Ngày tạo")
+    ngay_cap_nhat = models.DateTimeField(auto_now=True, verbose_name="Ngày cập nhật")
+    hoc_ky_hien_tai = models.ForeignKey(
+        'HocKy',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='cac_lop_hoc',
+        verbose_name="Học kỳ hiện tại"
+    )
+
+    class Meta:
+        verbose_name = "Lớp học"
+        verbose_name_plural = "Danh sách lớp học"
+        ordering = ['-khoa_hoc', 'khoa', 'ma_lop']
+
+    def __str__(self):
+        return f"{self.ma_lop} - {self.ten_lop} (Khóa {self.khoa_hoc})"
+    
+    def so_luong_sv_hien_tai(self):
+        """Trả về số lượng sinh viên hiện tại trong lớp"""
+        return self.danh_sach_sinh_vien.count()
+    
+    def con_cho_phep_dang_ky(self):
+        """Kiểm tra xem lớp còn chỗ trống không"""
+        return self.so_luong_sv_hien_tai() < self.si_so_toi_da
+
 
 class HocKy(models.Model):
     ma_hoc_ky = models.CharField(max_length=20, unique=True, null=True, blank=True, default='HK_DEFAULT')

@@ -104,5 +104,7 @@ urlpatterns = [
 # Additional routes
 urlpatterns += [
     path('add-historic/', views.add_history_point, name='add_historic'),
-    path('add-notification/', views.add_notification, name='add_notification')
+    path('add-notification/', views.add_notification, name='add_notification'),
+    path('lop-hoc/', views.lop_hoc_list, name='lop_hoc_list'),
+    path('lop-hoc/<str:ma_lop>/add-student/', views.add_student_to_class, name='add_student_to_class'),
 ]

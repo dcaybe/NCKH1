@@ -6,7 +6,7 @@ from .models import (
     StudentsReport, ComplaintHistory, Ranking, TeacherManager,
     Analysts, NofiticationManager, HomepageManager,
     PendingStudents, Analysts2, AdminManage, HistoryActive,
-    Login, KairaChatBot, HistoryPoint, HocKy
+    Login, KairaChatBot, HistoryPoint, HocKy, LopHoc
 )
 
 @admin.register(InfoStudent)
@@ -130,3 +130,15 @@ class HocKyAdmin(admin.ModelAdmin):
     search_fields = ('ma_hoc_ky', 'ten_hoc_ky')
     list_filter = ('nam_hoc', 'hoc_ky', 'isActive')
     ordering = ('-nam_hoc', '-hoc_ky')
+
+@admin.register(LopHoc)
+class LopHocAdmin(admin.ModelAdmin):
+    list_display = ('ma_lop', 'ten_lop', 'khoa', 'khoa_hoc', 'giao_vien_chu_nhiem', 'si_so_toi_da', 'so_luong_sv_hien_tai')
+    search_fields = ('ma_lop', 'ten_lop', 'khoa')
+    list_filter = ('khoa', 'khoa_hoc', 'hoc_ky_hien_tai')
+    list_select_related = ('giao_vien_chu_nhiem', 'hoc_ky_hien_tai')
+    raw_id_fields = ('giao_vien_chu_nhiem',)
+    
+    def so_luong_sv_hien_tai(self, obj):
+        return obj.so_luong_sv_hien_tai()
+    so_luong_sv_hien_tai.short_description = 'Sĩ số hiện tại'

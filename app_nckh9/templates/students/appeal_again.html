@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý thông báo - Sinh viên</title>
+    <title>Khiếu nại điểm rèn luyện - Sinh viên</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/student.css' %}" rel="stylesheet">
@@ -60,11 +60,11 @@
     <div class="main-content">
         <div class="header">
             <div class="header-left">
-                <h1>Khiếu lại</h1>
+                <h1>Khiếu nại điểm rèn luyện</h1>
             </div>
             <div class="header-right">
                 <div class="user-info">
-                    <span>Nguyễn Văn A</span>
+                    <span>{{ student.hoTen }}</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
@@ -76,13 +76,15 @@
                     <p>Vui lòng điền đầy đủ thông tin bên dưới</p>
                 </div>
 
-                <form id="complaintForm" class="appeal-form">
+                <form id="complaintForm" class="appeal-form" method="POST" action="{% url 'app_nckh9:student_appeal_again' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="semesterSelect">Học kỳ:</label>
-                        <select id="semesterSelect" required>
+                        <select id="semesterSelect" name="semester" required>
                             <option value="">Chọn học kỳ</option>
-                            <option value="20231">Học kỳ 1 năm 2023-2024</option>
-                            <option value="20232">Học kỳ 2 năm 2023-2024</option>
+                            {% for semester in semesters %}
+                            <option value="{{ semester.id }}">Học kỳ {{ semester.hocKy }} năm {{ semester.namHoc }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
@@ -98,7 +100,7 @@
 
                     <div class="form-group">
                         <label for="complaintReason">Lý do khiếu nại:</label>
-                        <textarea id="complaintReason" name="complaintReason" rows="8" required></textarea>
+                        <textarea id="complaintReason" name="complaintReason" rows="8" required maxlength="1000"></textarea>
                         <div class="character-count">
                             <span id="currentLength">0</span>/<span id="maxLength">1000</span> ký tự
                         </div>
@@ -125,7 +127,91 @@
         </div>
     </div>
 
-    <script src="appeal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Character counter for complaint reason
+            const complaintReason = document.getElementById('complaintReason');
+            const currentLength = document.getElementById('currentLength');
+            const maxLength = document.getElementById('maxLength');
+            
+            complaintReason.addEventListener('input', function() {
+                currentLength.textContent = this.value.length;
+                if (this.value.length > 1000) {
+                    currentLength.style.color = 'red';
+                } else {
+                    currentLength.style.color = '';
+                }
+            });
+            
+            // File upload preview
+            const fileInput = document.getElementById('attachment');
+            const fileList = document.getElementById('fileList');
+            
+            fileInput.addEventListener('change', function() {
+                fileList.innerHTML = '';
+                
+                if (this.files.length > 0) {
+                    for (let i = 0; i < this.files.length; i++) {
+                        const file = this.files[i];
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
+                        
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        
+                        // Check file size
+                        const maxSize = 5; // Default max size in MB
+                        const isValidSize = fileSize <= maxSize;
+                        
+                        let fileInfoHtml = '<div class="file-info"><i class="fas fa-file"></i>';
+                        fileInfoHtml += '<span class="file-name">' + file.name + '</span>';
+                        fileInfoHtml += '<span class="file-size ' + (isValidSize ? '' : 'text-danger') + '">' + fileSize + ' MB</span></div>';
+                        
+                        if (!isValidSize) {
+                            fileInfoHtml += '<div class="file-error">Kích thước file vượt quá giới hạn</div>';
+                        }
+                        
+                        fileItem.innerHTML = fileInfoHtml;
+                        fileList.appendChild(fileItem);
+                    }
+                }
+            });
+            
+            // Form reset function
+            window.resetForm = function() {
+                document.getElementById('complaintForm').reset();
+                fileList.innerHTML = '';
+                currentLength.textContent = '0';
+            };
+            
+            // Form validation
+            document.getElementById('complaintForm').addEventListener('submit', function(e) {
+                const semester = document.getElementById('semesterSelect').value;
+                const complaintType = document.getElementById('complaintType').value;
+                const reason = complaintReason.value;
+                
+                if (!semester || !complaintType || !reason) {
+                    e.preventDefault();
+                    alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+                    return false;
+                }
+                
+                // Check file size
+                const files = fileInput.files;
+                if (files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        const fileSize = files[i].size / 1024 / 1024; // Convert to MB
+                        if (fileSize > 5) { // 5MB limit
+                            e.preventDefault();
+                            alert('File ' + files[i].name + ' vượt quá kích thước cho phép (5MB)');
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            });
+        });
+    </script>
 </body>
 
 </html>
