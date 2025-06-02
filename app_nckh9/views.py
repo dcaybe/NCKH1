@@ -1,4 +1,5 @@
 import os
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, FileResponse
 from django.contrib import messages
@@ -168,7 +169,7 @@ def student_score_rating(request):
             score = SinhVienTDG (
                 maSV=student.maSV,
                 tenSV=student.tenSV,
-                lopSV=student.lopSV,
+                lopSV=student.lop_hoc.ma_lop,
                 dob=student.dob,
                 khoaSV=student.khoaSV,
                 khoaHoc=student.khoaHoc,
@@ -1058,95 +1059,200 @@ def password_reset_confirm(request, uidb64, token):
     except InfoTeacher.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin giảng viên')
         return redirect('app_nckh9:login')
-
+@login_required
 def teacher_class_management(request):
-   
-    return render(request,'teacher/class-management.html')
-
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/class-management.html', {'teacher': teacher})
+@login_required
 def teacher_analytics(request):
-   
-    return render(request,'teacher/analytics.html')
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/analytics.html', {'teacher': teacher})
 
-def teacher_score_management(request):
-   
-    return render(request,'teacher/score-management.html')
-
+@login_required
 def teacher_activity_history(request):
-   
-    return render(request,'teacher/activity-history.html')
-
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/activity-history.html', {'teacher': teacher})
+@login_required
 def teacher_notifications(request):
-   
-    return render(request,'teacher/notifications.html')
-
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/notifications.html', {'teacher': teacher})
+@login_required
 def teacher_ai_assistant(request):
-   
-    return render(request,'teacher/ai-assistant.html')
-from django.shortcuts import render
-from .models import SinhVienTDG, Ranking, Nofitication
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/ai-assistant.html', {'teacher': teacher})
+@login_required
+def teacher_rescore_student(request, maSV):
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+        student = SinhVienTDG.objects.get(maSV=maSV)
+        
+        if request.method == 'POST':
+            # Create a new GVCNDanhGia record
+            gvcn_danhgia = GVCNDanhGia()
+            
+            # Copy student info
+            gvcn_danhgia.maSV = student.maSV
+            gvcn_danhgia.tenSV = student.tenSV
+            gvcn_danhgia.lopSV = student.lopSV
+            gvcn_danhgia.dob = student.dob
+            gvcn_danhgia.khoaSV = student.khoaSV
+            gvcn_danhgia.khoaHoc = student.khoaHoc
+            
+            # Update scores from form data
+            gvcn_danhgia.kqHocTap = int(request.POST.get('kqHocTap', student.kqHocTap))
+            gvcn_danhgia.diemNCKH = int(request.POST.get('diemNCKH', student.diemNCKH))
+            gvcn_danhgia.diemCDSV = int(request.POST.get('diemCDSV', student.diemCDSV))
+            gvcn_danhgia.thanhtichHoatDong = int(request.POST.get('thanhtichHoatDong', student.thanhtichHoatDong))
+            gvcn_danhgia.thanhvienBCS = int(request.POST.get('thanhvienBCS', student.thanhvienBCS))
+            
+            # Update boolean fields
+            boolean_fields = [
+                'koDungPhao', 'koDiHocMuon', 'boThiOlympic', 'tronHoc', 'koVPKL',
+                'koThamgiaDaydu', 'koDeoTheSV', 'koSHL', 'dongHPmuon', 'thamgiaDayDu',
+                'thamgiaTVTS', 'koThamgiaDaydu2', 'viphamVanHoaSV', 'chaphanhDang',
+                'giupdoCongDong', 'gayMatDoanKet', 'dongBHYTmuon', 'caccapKhenThuong',
+                'BCSvotrachniem'
+            ]
+            
+            for field in boolean_fields:
+                setattr(gvcn_danhgia, field, field in request.POST)
+            
+            # Calculate total points
+            gvcn_danhgia.drl_tongket = (gvcn_danhgia.kqHocTap + gvcn_danhgia.diemNCKH + 
+                                      gvcn_danhgia.diemCDSV + gvcn_danhgia.thanhtichHoatDong + 
+                                      gvcn_danhgia.thanhvienBCS)
+            
+            # Determine xepLoai based on total points
+            if gvcn_danhgia.drl_tongket >= 90:
+                gvcn_danhgia.xepLoai = 'Xuất sắc'
+            elif gvcn_danhgia.drl_tongket >= 80:
+                gvcn_danhgia.xepLoai = 'Tốt'
+            elif gvcn_danhgia.drl_tongket >= 65:
+                gvcn_danhgia.xepLoai = 'Khá'
+            elif gvcn_danhgia.drl_tongket >= 50:
+                gvcn_danhgia.xepLoai = 'Trung bình'
+            elif gvcn_danhgia.drl_tongket >= 35:
+                gvcn_danhgia.xepLoai = 'Yếu'
+            else:
+                gvcn_danhgia.xepLoai = 'Kém'
+                
+            # Set status to indicate scoring is complete
+            gvcn_danhgia.trangthai = True
+            
+            # Save the GVCNDanhGia record
+            gvcn_danhgia.save()
+            
+            # Update student's trangthai to True to indicate scoring is complete
+            student.trangthai = True
+            student.save()
+            
+            messages.success(request, 'Đã lưu đánh giá điểm rèn luyện thành công!')
+            return redirect('app_nckh9:teacher_score_management_detail')
+        
+        # For GET request, show the form with current student data
+        return render(request, 'teacher/rescore_student.html', {
+            'teacher': teacher,
+            'student': student,
+        })
+        
+    except SinhVienTDG.DoesNotExist:
+        messages.error(request, 'Không tìm thấy sinh viên này')
+        return redirect('app_nckh9:teacher_score_management')
+    except Exception as e:
+        messages.error(request, f'Có lỗi xảy ra: {str(e)}')
+        return redirect('app_nckh9:teacher_score_management')
 
-# @login_required
-# def student_dashboard(request):
+@login_required
+def teacher_score_management(request):
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+        students = SinhVienTDG.objects.filter(maSV='2221050508',trangthai=False)
+        
+        # Apply filters
+        # if ma_lop:
+        #     students = students.filter(lopSV=ma_lop)
+        
+        # if search:
+        #     students = students.filter(
+        #         Q(maSV__icontains=search) |
+        #         Q(tenSV__icontains=search) |
+        #         Q(lopSV__icontains=search)
+        #     )
+        
+        # Get unique classes for filter dropdown
+        # classes = SinhVienTDG.objects.values_list('lopSV', flat=True).distinct()
+        
+        return render(request, 'teacher/score_management_detail.html', {
+            'teacher': teacher,
+            'students': students,
+            # 'classes': classes,
+            'selected_class': ma_lop,
+            # 'search_query': search,
+        })
+    except InfoTeacher.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin giảng viên')
+        return redirect('app_nckh9:login')
+    return render(request,'teacher/score-management.html', {'teacher': teacher})
+@login_required
+def teacher_score_management_detail(request):
+    try:
+        teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+        
+        # Get filter parameters
+        # ma_lop = request.GET.get('ma_lop')
+        ma_lop = 'CNTT01'
+        # search = request.GET.get('search', '')
+        
+        # Get all students
+        students = SinhVienTDG.objects.filter(maSV='2221050508')
+        
+        # Apply filters
+        # if ma_lop:
+        #     students = students.filter(lopSV=ma_lop)
+        
+        # if search:
+        #     students = students.filter(
+        #         Q(maSV__icontains=search) |
+        #         Q(tenSV__icontains=search) |
+        #         Q(lopSV__icontains=search)
+        #     )
+        
+        # Get unique classes for filter dropdown
+        # classes = SinhVienTDG.objects.values_list('lopSV', flat=True).distinct()
+        
+        return render(request, 'teacher/score_management_detail.html', {
+            'teacher': teacher,
+            'students': students,
+            # 'classes': classes,
+            'selected_class': ma_lop,
+            # 'search_query': search,
+        })
+        
+    except Exception as e:
+        messages.error(request, f'Có lỗi xảy ra: {str(e)}')
+        return redirect('app_nckh9:teacher_score_management_detail')
 
-#     # Lấy danh sách sinh viên
-#     user = request.user
-#     students = InfoStudent.objects.get(emailSV=user.email)
-#     # Lấy danh sách xếp hạng
-#     rankings = Ranking.objects.all()
-#     xeploai = 'Đỉnh phong'
-#     # Lấy thông báo
-#     notifications = Nofitication.objects.all()
-    # historic_points = []
-    # trend_labels = []
-    # trend_scores = []
-    
-    # history = HistoryPoint.objects.filter(emailSV=user.email)
-    # if history:
-    #     for i in range(1, 21):
-    #         score = getattr(history, f"hocky{i}", None)
-    #         if score is not None:
-    #             # Tạo nhãn và điểm cho biểu đồ
-    #             semester_label = f"Học kỳ {i}"
-    #             nam = ((i - 1) // 2) + 1  # Năm học (1-5)
-    #             hk = 1 if i % 2 != 0 else 2  # Học kỳ lẻ (HK1), chẵn (HK2)
-    #             trend_labels.append(f"HK{hk}-N{nam}")
-    #             trend_scores.append(score)  
 
-    #             # Tạo dữ liệu historic_points
-    #             historic_points.append((semester_label, score))
-    # current_semester = historic_points[-1] if historic_points else None
-    #     # Sau khi đã tạo historic_points
-    # avg_score = None
-    # if historic_points:
-    #     total_score = sum(score for _, score in historic_points)
-    #     avg_score = round(total_score / len(historic_points))  # Làm tròn 2 chữ số thập phân
-    # # Truyền dữ liệu vào context
-    # if avg_score >= 90:
-    #     xeploai = "Xuất sắc"
-    # elif avg_score >= 80:
-    #     xeploai = "Tốt"
-    # elif avg_score >= 65:
-    #     xeploai = "Khá"
-    # elif avg_score >= 50:
-    #     xeploai = "Trung bình"
-    # elif avg_score >= 35:
-    #     xeploai = "Yếu"
-    # else:
-    #     xeploai = "Kém"
-#     xeploai = 'tốt'
-#     context = {
-#         'historic_points': historic_points,
-#         'trend_labels': trend_labels,
-#         'trend_scores': trend_scores,
-#         'current_semester': current_semester,
-#         'avg_score': avg_score,
-#         'students': students,
-#         'rankings': rankings,
-#         'notifications': notifications,
-#         'xeploai':xeploai,
-#     }
-    
-#     return render(request, 'students/dashboard.html', context)
 from django.contrib.auth.decorators import login_required
 
 

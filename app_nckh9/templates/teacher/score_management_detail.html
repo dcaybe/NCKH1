@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="main-content">
+    <div class="header">
+        <div class="header-left">
+            <h1>Quản lý điểm rèn luyện</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span>{{ teacher.tenGV }}</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Danh sách sinh viên</h2>
+            <div class="filters">
+                <form method="get" class="filter-form">
+                    <div class="form-group">
+                        <label for="ma_lop">Lớp:</label>
+                        <!-- <select name="ma_lop" id="ma_lop" onchange="this.form.submit()">
+                            <option value="">Tất cả lớp</option>
+                            {% for class in classes %}
+                                <option value="{{ class }}" {% if selected_class == class %}selected{% endif %}>
+                                    {{ class }}
+                                </option>
+                            {% endfor %}
+                        </select> -->
+                    </div>
+                    <div class="form-group search-box">
+                        <input type="text" name="search" placeholder="Tìm kiếm..." value="{{ search_query|default:'' }}">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã SV</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Điểm rèn luyện</th>
+                            <th>Xếp loại</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.maSV }}</td>
+                            <td>{{ student.tenSV }}</td>
+                            <td>{{ student.lopSV }}</td>
+                            <td>{{ student.drl_tongket|default:0 }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if student.xepLoai == 'Xuất sắc' %}badge-success
+                                    {% elif student.xepLoai == 'Tốt' %}badge-primary
+                                    {% elif student.xepLoai == 'Khá' %}badge-info
+                                    {% elif student.xepLoai == 'Trung bình' %}badge-warning
+                                    {% else %}badge-danger{% endif %}">
+                                    {{ student.xepLoai|default:'Chưa xếp loại' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{% url 'app_nckh9:teacher_rescore_student' maSV=student.maSV %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i> Chấm lại
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Không tìm thấy sinh viên nào</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .filter-form {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+    .form-group {
+        margin-bottom: 0;
+    }
+    .search-box {
+        display: flex;
+        align-items: center;
+    }
+    .search-box input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .search-box button {
+        height: 38px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .data-table th,
+    .data-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .data-table th {
+        background-color: #f5f5f5;
+        font-weight: 600;
+    }
+    .badge {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .badge-success { background-color: #28a745; color: white; }
+    .badge-primary { background-color: #007bff; color: white; }
+    .badge-info { background-color: #17a2b8; color: white; }
+    .badge-warning { background-color: #ffc107; color: #212529; }
+    .badge-danger { background-color: #dc3545; color: white; }
+</style>
+
+
+</body>
+</html>

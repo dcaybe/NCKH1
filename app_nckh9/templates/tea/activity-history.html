@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/teacher.css' %}" rel="stylesheet">
-    <script src="{% static 'js/activity-history.js' %}"></script>
+    <script src="{% static 'js/teacher/activity-history.js' %}"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -17,7 +17,7 @@
             <p>Giáo viên</p>
         </div>  
         <div class="menu">
-            <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item active">
+            <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item ">
                 <i class="fas fa-home"></i>
                 <span>Trang chủ</span>
             </a>
@@ -58,8 +58,8 @@
             </div>
             <div class="header-right">
                 <div class="user-info">
-                    <!-- <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar"> -->
-                    <span>{{ teacher.tenGV }}</span>
+                    <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar">
+                    <span>Nguyễn Văn A</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
@@ -204,4 +204,3 @@
     <script src="activity-history.js" defer></script>
 </body>
 </html>
-

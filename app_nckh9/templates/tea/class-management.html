@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{% static 'css/teacher.css' %}" rel="stylesheet">
-    <script src="{% static 'js/teacher/class-management.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,7 +16,7 @@
         <div class="logo">
             <h2>Hệ thống QL Điểm RL</h2>
             <p>Giáo viên</p>
-        </div>
+        </div>  
         <div class="menu">
             <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item active">
                 <i class="fas fa-home"></i>
@@ -52,6 +51,7 @@
         </div>
     </div>
 
+
     <div class="main-content">
         <div class="header">
             <div class="header-left">
@@ -59,8 +59,8 @@
             </div>
             <div class="header-right">
                 <div class="user-info">
-                    <!-- <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar"> -->
-                    <span>{{ teacher.tenGV }}</span>
+                    <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar">
+                    <span>Nguyễn Văn A</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
@@ -698,6 +698,6 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="class-management.js"></script>
+    <script src="{% static 'js/teacher/class-management.js' %}"></script>
 </body>
 </html>

@@ -1,9 +1,4 @@
 /* Base Variables */
-a {
-    text-decoration: none; /* Loại bỏ dấu gạch chân */
-    color: white; /* Đặt màu chữ thành trắng */
-}
-
 :root {
     /* Colors */
     --primary-color: #2196F3;
@@ -136,6 +131,12 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.2s;
 }
 
+.avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
 /* Animations */
 @keyframes fadeIn {
@@ -360,6 +361,12 @@ h1, h2, h3, h4, h5, h6 {
     background: #f3f4f6;
 }
 
+.avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
 .user-details {
     display: flex;
@@ -5551,6 +5558,3 @@ h2 {
         transform: translateY(0);
     }
 }
-
-
-

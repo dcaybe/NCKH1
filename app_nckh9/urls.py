@@ -76,7 +76,9 @@ view_urlpatterns = [
     # Teacher views
     path('teacher/', views.teacher_dashboard, name='teacher_dashboard'),
     path('teacher/class-management/', views.teacher_class_management, name='teacher_class_management'),
+    path('teacher/score-management-detail/', views.teacher_score_management_detail, name='teacher_score_management_detail'),    
     path('teacher/score-management/', views.teacher_score_management, name='teacher_score_management'),
+    path('teacher/rescore/student/<int:maSV>/', views.teacher_rescore_student, name='teacher_rescore_student'),
     path('teacher/analytics/', views.teacher_analytics, name='teacher_analytics'),
     path('teacher/activity-history/', views.teacher_activity_history, name='teacher_activity_history'),
     path('teacher/ai-assistant/', views.chat_view, name='teacher_ai_assistant'),

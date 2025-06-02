@@ -148,6 +148,7 @@ class GVCNDanhGia(models.Model):
     ghichu8 = models.CharField(max_length=500)
     drl_tongket = models.IntegerField(default=0)
     xepLoai = models.CharField(max_length=255)
+    trangthai = models.BooleanField(default=False)
 
 class HoiDongKhoaChamDiem(models.Model):
     maSV = models.IntegerField()

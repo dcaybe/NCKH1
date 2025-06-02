@@ -7,49 +7,50 @@
     <title>Quản lý điểm rèn luyện - Hệ thống Quản lý điểm rèn luyện</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="{% static 'css/teacher.css' %}" rel="stylesheet"> 
-    <script src="{% static 'js/teacher/score-management.js' %}"></script>
+    <link href="{% static 'css/teacher.css' %}" rel="stylesheet">
+    <script src="{% static 'js/teacher/score-management.js' %}" defer></script>
 </head>
 <body>
     <!-- Common sidebar template for all teacher HTML files -->
-<div class="sidebar">
-    <div class="logo">
-        <h2>Hệ thống QL Điểm RL</h2>
-        <p>Giáo viên</p>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hệ thống QL Điểm RL</h2>
+            <p>Giáo viên</p>
+        </div>  
+        <div class="menu">
+            <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Quản lý lớp học</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_score_management' %}" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Quản lý điểm rèn luyện</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_analytics' %}" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Thống kê & Báo cáo</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_notifications' %}" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <span>Quản lý thông báo</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_activity_history' %}" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử hoạt động</span>
+            </a>
+            <!-- <a href="{% url 'app_nckh9:teacher_ai_assistant' %}" class="menu-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Hỗ trợ</span>
+            </a> -->
+        
+          
+        </div>
     </div>
-    <div class="menu">
-        <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item active">
-            <i class="fas fa-home"></i>
-            <span>Trang chủ</span>
-        </a>
-        <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
-            <i class="fas fa-users"></i>
-            <span>Quản lý lớp học</span>
-        </a>
-        <a href="{% url 'app_nckh9:teacher_score_management' %}" class="menu-item">
-            <i class="fas fa-tasks"></i>
-            <span>Quản lý điểm rèn luyện</span>
-        </a>
-        <a href="{% url 'app_nckh9:teacher_analytics' %}" class="menu-item">
-            <i class="fas fa-chart-line"></i>
-            <span>Thống kê & Báo cáo</span>
-        </a>
-        <a href="{% url 'app_nckh9:teacher_notifications' %}" class="menu-item">
-            <i class="fas fa-bell"></i>
-            <span>Quản lý thông báo</span>
-        </a>
-        <a href="{% url 'app_nckh9:teacher_activity_history' %}" class="menu-item">
-            <i class="fas fa-history"></i>
-            <span>Lịch sử hoạt động</span>
-        </a>
-        <!-- <a href="{% url 'app_nckh9:teacher_ai_assistant' %}" class="menu-item">
-            <i class="fas fa-robot"></i>
-            <span>AI Hỗ trợ</span>
-        </a> -->
-    
-      
-    </div>
-</div>
+
     <div class="main-content">
         <div class="header">
             <div class="header-left">
@@ -57,8 +58,8 @@
             </div>
             <div class="header-right">
                 <div class="user-info">
-                    <!-- <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar"> -->
-                    <span>{{ teacher.tenGV }}</span>
+                    <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar">
+                    <span>Nguyễn Văn A</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
