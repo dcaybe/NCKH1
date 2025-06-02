@@ -132,130 +132,38 @@
                         </thead>
                         <tbody id="studentTableBody">
                             <!-- Will be populated by JavaScript -->
-                            <tr>
+                            {% for student in students %}
+                                 <tr>
                                 <td>
                                     <label class="checkbox-wrapper">
                                         <input type="checkbox" class="student-select" data-id="${student.id}">
                                         <span class="checkmark"></span>
                                     </label>
                                 </td>
-                                <td>1900299</td>
+                                <td>{{ student.maSV }}</td>
                                 <td>
                                     <div class="student-name-cell">
                                         <i class="fas fa-user-circle"></i>
-                                        <span>Trần Văn A    </span>
+                                        <span>{{ student.tenSV }}</span>
                                     </div>
                                 </td>
-                                <td>CNTT2021</td>
-                                <td>85</td>
-                                <td><span class="status-badge scored">Đã chấm</span></td>
+                                <td>{{ student.lopSV }}</td>
+                                <td>{{ student.drl_tongket|default:0 }}</td>
+                                <td>
+                                    {% if student.trangthai %}
+                                        <span class="status-badge scored">Đã chấm</span>
+                                    {% else %}
+                                        <span class="status-badge pending">Chưa chấm</span>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <div class="action-buttons">
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"> <a href="{% url 'app_nckh9:teacher_rescore_student' maSV=student.maSV %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a></button>
                                         <button class="btn-icon"><i class="fas fa-history"></i></button>
                                     </div>
                                 </td>
                             </tr>
-                            
-                            <tr>
-                                <td>
-                                    <label class="checkbox-wrapper">
-                                        <input type="checkbox" class="student-select">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                                <td>1900300</td>
-                                <td>
-                                    <div class="student-name-cell">
-                                        <i class="fas fa-user-circle"></i>
-                                        <span>Nguyễn Thị B</span>
-                                    </div>
-                                </td>
-                                <td>CNTT2021</td>
-                                <td>90</td>
-                                <td><span class="status-badge scored">Đã chấm</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon"><i class="fas fa-history"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <label class="checkbox-wrapper">
-                                        <input type="checkbox" class="student-select">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                                <td>1900301</td>
-                                <td>
-                                    <div class="student-name-cell">
-                                        <i class="fas fa-user-circle"></i>
-                                        <span>Lê Thị C</span>
-                                    </div>
-                                </td>
-                                <td>CNTT2021</td>
-                                <td>-</td>
-                                <td><span class="status-badge pending">Chưa chấm</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon"><i class="fas fa-history"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <label class="checkbox-wrapper">
-                                        <input type="checkbox" class="student-select">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                                <td>1900302</td>
-                                <td>
-                                    <div class="student-name-cell">
-                                        <i class="fas fa-user-circle"></i>
-                                        <span>Phạm Văn D</span>
-                                    </div>
-                                </td>
-                                <td>CNTT2021</td>
-                                <td>75</td>
-                                <td><span class="status-badge scored">Đã chấm</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon"><i class="fas fa-history"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <label class="checkbox-wrapper">
-                                        <input type="checkbox" class="student-select">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                                <td>1900303</td>
-                                <td>
-                                    <div class="student-name-cell">
-                                        <i class="fas fa-user-circle"></i>
-                                        <span>Hoàng Văn E</span>
-                                    </div>
-                                </td>
-                                <td>CNTT2021</td>
-                                <td>-</td>
-                                <td><span class="status-badge pending">Chưa chấm</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon"><i class="fas fa-history"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

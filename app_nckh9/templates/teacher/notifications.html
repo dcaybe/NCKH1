@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="notification-body">
-                                    <p class="content"></p>
+                                    <p></p>
                                     <div class="targets">
                                         <span class="target-label">Đối tượng:</span>
                                         <div class="target-list"></div>
@@ -150,13 +150,12 @@
                                 <div class="notification-footer">
                                     <div class="stats">
                                         <span class="views"><i class="fas fa-eye"></i> <span class="count">0</span> lượt xem</span>
-                                        <span class="responses"><i class="fas fa-check-circle"></i> <span class="count">0</span> phản hồi</span>
                                     </div>
                                     <div class="actions">
-                                        <button class="btn btn-icon edit" title="Chỉnh sửa">
+                                        <button class="btn btn-icon btn-outline">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-icon delete" title="Xóa">
+                                        <button class="btn btn-icon btn-outline">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
@@ -164,120 +163,44 @@
                             </div>
                         </div>
                     </template>
-                    <div class="notification-item unread important">
-                        <div class="notification-icon">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-header">
-                                <h4>Thông báo chấm điểm rèn luyện học kỳ 1</h4>
-                                <div class="notification-meta">
-                                    <span class="status-badge important">Quan trọng</span>
-                                    <span class="date">2 giờ trước</span>
-                                </div>
+                    
+                    {% if notifications %}
+                        {% for notification in notifications %}
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-bell"></i>
                             </div>
-                            <div class="notification-body">
-                                <p>Đề nghị sinh viên hoàn thành chấm điểm rèn luyện trước ngày 15/12/2023</p>
-                                <div class="targets">
-                                    <span class="target-label">Đối tượng:</span>
-                                    <div class="target-list">
-                                        <span class="target-badge">CNTT2021</span>
-                                        <span class="target-badge">CNTT2022</span>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <h4>{{ notification.title }}</h4>
+                                    <div class="notification-meta">
+                                        <span class="date">{{ notification.dob|date:"d/m/Y H:i" }}</span>
+                                    </div>
+                                </div>
+                                <div class="notification-body">
+                                    <p>{{ notification.content }}</p>
+                                </div>
+                                <div class="notification-footer">
+                                    <div class="actions">
+                                        <button class="btn btn-icon btn-outline">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-icon btn-outline">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-bell-slash"></i>
+                            <p>Không có thông báo nào</p>
+                        </div>
+                    {% endif %}
 
-                    <div class="notification-item unread warning">
-                        <div class="notification-icon warning">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-header">
-                                <h4>Nhắc nhở thời hạn nộp minh chứng</h4>
-                                <div class="notification-meta">
-                                    <span class="status-badge warning">Cần xử lý</span>
-                                    <span class="date">1 ngày trước</span>
-                                </div>
-                            </div>
-                            <div class="notification-body">
-                                <p>Thời hạn nộp minh chứng hoạt động sẽ kết thúc trong 2 ngày</p>
-                                <div class="targets">
-                                    <span class="target-label">Đối tượng:</span>
-                                    <div class="target-list">
-                                        <span class="target-badge">Tất cả lớp</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="notification-item scheduled">
-                        <div class="notification-icon scheduled">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-header">
-                                <h4>Lịch họp đánh giá điểm rèn luyện</h4>
-                                <div class="notification-meta">
-                                    <span class="status-badge scheduled">Đã lên lịch</span>
-                                    <span class="date">20/12/2023 14:00</span>
-                                </div>
-                            </div>
-                            <div class="notification-body">
-                                <p>Họp đánh giá điểm rèn luyện học kỳ 1 năm học 2023-2024</p>
-                                <div class="targets">
-                                    <span class="target-label">Địa điểm:</span>
-                                    <div class="target-list">
-                                        <span class="target-badge">Phòng họp A1.01</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notification-item unread important">
-                        <div class="notification-icon">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-header">
-                                <h4>Thông báo thay đổi quy định điểm rèn luyện</h4>
-                                <div class="notification-meta">
-                                    <span class="status-badge important">Quan trọng</span>
-                                    <span class="date">3 giờ trước</span>
-                                </div>
-                            </div>
-                            <div class="notification-body">
-                                <p>Cập nhật quy định mới về cách tính điểm rèn luyện từ học kỳ 2</p>
-                                <div class="targets">
-                                    <span class="target-label">Đối tượng:</span>
-                                    <div class="target-list">
-                                        <span class="target-badge">Toàn trường</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notification-item scheduled">
-                        <div class="notification-icon scheduled">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-header">
-                                <h4>Kế hoạch đánh giá điểm rèn luyện học kỳ 2</h4>
-                                <div class="notification-meta">
-                                    <span class="status-badge scheduled">Đã lên lịch</span>
-                                    <span class="date">15/03/2024</span>
-                                </div>
-                            </div>
-                            <div class="notification-body">
-                                <p>Thông báo kế hoạch đánh giá điểm rèn luyện học kỳ 2 năm học 2023-2024</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Enhanced Pagination -->

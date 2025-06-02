@@ -1088,10 +1088,19 @@ def teacher_activity_history(request):
 def teacher_notifications(request):
     try:
         teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
+        # Get all private notifications ordered by date (newest first)
+        notifications = PrivateNofitication.objects.all().order_by('-dob')
     except InfoTeacher.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin giảng viên')
         return redirect('app_nckh9:login')
-    return render(request,'teacher/notifications.html', {'teacher': teacher})
+    except Exception as e:
+        messages.error(request, f'Có lỗi xảy ra: {str(e)}')
+        notifications = []
+    
+    return render(request, 'teacher/notifications.html', {
+        'teacher': teacher,
+        'notifications': notifications
+    })
 @login_required
 def teacher_ai_assistant(request):
     try:
@@ -1102,72 +1111,153 @@ def teacher_ai_assistant(request):
     return render(request,'teacher/ai-assistant.html', {'teacher': teacher})
 @login_required
 def teacher_rescore_student(request, maSV):
-    try:
+    # try:
         teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
-        student = SinhVienTDG.objects.get(maSV=maSV)
         
+        try:
+            student = SinhVienTDG.objects.get(maSV=maSV, trangthai=False)
+        except SinhVienTDG.DoesNotExist:
+            messages.error(request, 'Không tìm thấy sinh viên này hoặc sinh viên đã được chấm điểm')
+            return redirect('app_nckh9:teacher_score_management')
+
         if request.method == 'POST':
-            # Create a new GVCNDanhGia record
-            gvcn_danhgia = GVCNDanhGia()
-            
-            # Copy student info
-            gvcn_danhgia.maSV = student.maSV
-            gvcn_danhgia.tenSV = student.tenSV
-            gvcn_danhgia.lopSV = student.lopSV
-            gvcn_danhgia.dob = student.dob
-            gvcn_danhgia.khoaSV = student.khoaSV
-            gvcn_danhgia.khoaHoc = student.khoaHoc
-            
-            # Update scores from form data
-            gvcn_danhgia.kqHocTap = int(request.POST.get('kqHocTap', student.kqHocTap))
-            gvcn_danhgia.diemNCKH = int(request.POST.get('diemNCKH', student.diemNCKH))
-            gvcn_danhgia.diemCDSV = int(request.POST.get('diemCDSV', student.diemCDSV))
-            gvcn_danhgia.thanhtichHoatDong = int(request.POST.get('thanhtichHoatDong', student.thanhtichHoatDong))
-            gvcn_danhgia.thanhvienBCS = int(request.POST.get('thanhvienBCS', student.thanhvienBCS))
-            
-            # Update boolean fields
-            boolean_fields = [
-                'koDungPhao', 'koDiHocMuon', 'boThiOlympic', 'tronHoc', 'koVPKL',
-                'koThamgiaDaydu', 'koDeoTheSV', 'koSHL', 'dongHPmuon', 'thamgiaDayDu',
-                'thamgiaTVTS', 'koThamgiaDaydu2', 'viphamVanHoaSV', 'chaphanhDang',
-                'giupdoCongDong', 'gayMatDoanKet', 'dongBHYTmuon', 'caccapKhenThuong',
-                'BCSvotrachniem'
-            ]
-            
-            for field in boolean_fields:
-                setattr(gvcn_danhgia, field, field in request.POST)
-            
-            # Calculate total points
-            gvcn_danhgia.drl_tongket = (gvcn_danhgia.kqHocTap + gvcn_danhgia.diemNCKH + 
-                                      gvcn_danhgia.diemCDSV + gvcn_danhgia.thanhtichHoatDong + 
-                                      gvcn_danhgia.thanhvienBCS)
-            
-            # Determine xepLoai based on total points
-            if gvcn_danhgia.drl_tongket >= 90:
-                gvcn_danhgia.xepLoai = 'Xuất sắc'
-            elif gvcn_danhgia.drl_tongket >= 80:
-                gvcn_danhgia.xepLoai = 'Tốt'
-            elif gvcn_danhgia.drl_tongket >= 65:
-                gvcn_danhgia.xepLoai = 'Khá'
-            elif gvcn_danhgia.drl_tongket >= 50:
-                gvcn_danhgia.xepLoai = 'Trung bình'
-            elif gvcn_danhgia.drl_tongket >= 35:
-                gvcn_danhgia.xepLoai = 'Yếu'
-            else:
-                gvcn_danhgia.xepLoai = 'Kém'
+            # try:
+                # Kiểm tra xem đã có bản ghi GVCNDanhGia cho sinh viên này chưa
+                # try:
+                #     gvcn_danhgia = GVCNDanhGia.objects.get(maSV=maSV)
+                # except GVCNDanhGia.DoesNotExist:
+                #     # Tạo mới nếu chưa tồn tại
+                gvcn_danhgia = GVCNDanhGia()
                 
-            # Set status to indicate scoring is complete
-            gvcn_danhgia.trangthai = True
-            
-            # Save the GVCNDanhGia record
-            gvcn_danhgia.save()
-            
-            # Update student's trangthai to True to indicate scoring is complete
-            student.trangthai = True
-            student.save()
-            
-            messages.success(request, 'Đã lưu đánh giá điểm rèn luyện thành công!')
-            return redirect('app_nckh9:teacher_score_management_detail')
+                # Copy student info
+                gvcn_danhgia.maSV = student.maSV
+                gvcn_danhgia.tenSV = student.tenSV
+                gvcn_danhgia.lopSV = student.lopSV
+                gvcn_danhgia.dob = student.dob
+                gvcn_danhgia.khoaSV = student.khoaSV
+                gvcn_danhgia.khoaHoc = student.khoaHoc
+                
+                # Update scores from form data with safer conversion
+                try:
+                    gvcn_danhgia.kqHocTap = int(request.POST.get('kqHocTap', 0))
+                except (ValueError, TypeError):
+                    gvcn_danhgia.kqHocTap = 0
+                    
+                try:
+                    gvcn_danhgia.diemNCKH = int(request.POST.get('diemNCKH', 0))
+                except (ValueError, TypeError):
+                    gvcn_danhgia.diemNCKH = 0
+                    
+                try:
+                    gvcn_danhgia.diemCDSV = int(request.POST.get('diemCDSV', 0))
+                except (ValueError, TypeError):
+                    gvcn_danhgia.diemCDSV = 0
+                    
+                try:
+                    gvcn_danhgia.thanhtichHoatDong = int(request.POST.get('thanhtichHoatDong', 0))
+                except (ValueError, TypeError):
+                    gvcn_danhgia.thanhtichHoatDong = 0
+                    
+                try:
+                    gvcn_danhgia.thanhvienBCS = int(request.POST.get('thanhvienBCS', 0))
+                except (ValueError, TypeError):
+                    gvcn_danhgia.thanhvienBCS = 0
+                
+                # Update boolean fields
+                boolean_fields = [
+                    'koDungPhao', 'koDiHocMuon', 'boThiOlympic', 'tronHoc', 'koVPKL',
+                    'koThamgiaDaydu', 'koDeoTheSV', 'koSHL', 'dongHPmuon', 'thamgiaDayDu',
+                    'thamgiaTVTS', 'koThamgiaDaydu2', 'viphamVanHoaSV', 'chaphanhDang',
+                    'giupdoCongDong', 'gayMatDoanKet', 'dongBHYTmuon', 'caccapKhenThuong',
+                    'BCSvotrachnghiem'
+                ]
+                
+                # Đặt tất cả các trường boolean thành False trước
+                for field in boolean_fields:
+                    setattr(gvcn_danhgia, field, False)
+                
+                # Sau đó cập nhật các trường được chọn thành True
+                for field in boolean_fields:
+                    if field in request.POST:
+                        setattr(gvcn_danhgia, field, True)
+                
+                # Tính điểm từ các trường boolean
+                boolean_points = (
+                    (3 if gvcn_danhgia.koDungPhao else 0) +
+                    (2 if gvcn_danhgia.koDiHocMuon else 0) +
+                    (-15 if gvcn_danhgia.boThiOlympic else 0) +
+                    (-2 if gvcn_danhgia.tronHoc else 0) +
+                    (10 if gvcn_danhgia.koVPKL else 0) +
+                    
+                    (-10 if gvcn_danhgia.koThamgiaDaydu else 0) +
+                    (-5 if gvcn_danhgia.koDeoTheSV else 0) +
+                    (-5 if gvcn_danhgia.koSHL else 0) +
+                    (-10 if gvcn_danhgia.dongHPmuon else 0) +
+                    (13 if gvcn_danhgia.thamgiaDayDu else 0) +
+                    
+                    (2 if gvcn_danhgia.thamgiaTVTS else 0) +
+                    (-5 if gvcn_danhgia.koThamgiaDaydu2 else 0) +
+                    (-5 if gvcn_danhgia.viphamVanHoaSV else 0) +
+                    (10 if gvcn_danhgia.chaphanhDang else 0) +
+                    (5 if gvcn_danhgia.giupdoCongDong else 0) +
+                    (-5 if gvcn_danhgia.gayMatDoanKet else 0) +
+                    (-20 if gvcn_danhgia.dongBHYTmuon else 0) +
+                    
+                    (3 if gvcn_danhgia.caccapKhenThuong else 0) +
+                    (-5 if gvcn_danhgia.BCSvotrachnghiem else 0)
+                )
+                
+                # Calculate total points
+                gvcn_danhgia.drl_tongket = (
+                    gvcn_danhgia.kqHocTap + 
+                    gvcn_danhgia.diemNCKH + 
+                    gvcn_danhgia.diemCDSV + 
+                    gvcn_danhgia.thanhtichHoatDong + 
+                    gvcn_danhgia.thanhvienBCS + 
+                    boolean_points
+                )
+                
+                # Determine xepLoai based on total points
+                if gvcn_danhgia.drl_tongket >= 90:
+                    gvcn_danhgia.xepLoai = 'Xuất sắc'
+                elif gvcn_danhgia.drl_tongket >= 80:
+                    gvcn_danhgia.xepLoai = 'Tốt'
+                elif gvcn_danhgia.drl_tongket >= 65:
+                    gvcn_danhgia.xepLoai = 'Khá'
+                elif gvcn_danhgia.drl_tongket >= 50:
+                    gvcn_danhgia.xepLoai = 'Trung bình'
+                elif gvcn_danhgia.drl_tongket >= 35:
+                    gvcn_danhgia.xepLoai = 'Yếu'
+                else:
+                    gvcn_danhgia.xepLoai = 'Kém'
+                
+                # Save the GVCNDanhGia record
+                gvcn_danhgia.save()
+                
+                # Update student's trangthai to True to indicate scoring is complete
+                student.trangthai = True
+                student.save()
+                
+                # Create notification for student
+                student_notification = Nofitication()
+                student_notification.title = f'Điểm rèn luyện đã được chấm'
+                student_notification.dob = timezone.now()
+                student_notification.content = f'Giáo viên {teacher.tenGV} đã chấm điểm rèn luyện của bạn. Điểm tổng kết: {gvcn_danhgia.drl_tongket} - Xếp loại: {gvcn_danhgia.xepLoai}'
+                student_notification.save()
+                
+                # Create private notification for teacher
+                teacher_notification = PrivateNofitication()
+                teacher_notification.title = f'Đã chấm điểm rèn luyện thành công'
+                teacher_notification.dob = timezone.now()
+                teacher_notification.content = f'Bạn đã chấm điểm rèn luyện thành công cho sinh viên {student.tenSV} - {student.maSV}. Điểm tổng kết: {gvcn_danhgia.drl_tongket} - Xếp loại: {gvcn_danhgia.xepLoai}'
+                teacher_notification.save()
+                
+                messages.success(request, 'Đã lưu đánh giá điểm rèn luyện thành công!')
+                return redirect('app_nckh9:teacher_score_management')
+                
+            # except Exception as inner_e:
+            #     messages.error(request, f'Lỗi khi xử lý dữ liệu: {str(inner_e)}')
+            #     return redirect('app_nckh9:teacher_score_management')
         
         # For GET request, show the form with current student data
         return render(request, 'teacher/rescore_student.html', {
@@ -1175,18 +1265,19 @@ def teacher_rescore_student(request, maSV):
             'student': student,
         })
         
-    except SinhVienTDG.DoesNotExist:
-        messages.error(request, 'Không tìm thấy sinh viên này')
-        return redirect('app_nckh9:teacher_score_management')
-    except Exception as e:
-        messages.error(request, f'Có lỗi xảy ra: {str(e)}')
-        return redirect('app_nckh9:teacher_score_management')
+    # except InfoTeacher.DoesNotExist:
+    #     messages.error(request, 'Không tìm thấy thông tin giáo viên')
+    #     return redirect('app_nckh9:teacher_score_management')
+    # except Exception as e:
+    #     messages.error(request, f'Có lỗi xảy ra: {str(e)}')
+    #     return redirect('app_nckh9:teacher_score_management')
 
 @login_required
 def teacher_score_management(request):
     try:
         teacher = InfoTeacher.objects.get(emailCoVan=request.user.email)
-        students = SinhVienTDG.objects.filter(maSV='2221050508',trangthai=False)
+        lopGV = LopHoc.objects.filter(giao_vien_chu_nhiem=teacher)
+        students = SinhVienTDG.objects.filter(trangthai=False,lopSV__in=lopGV.values_list('ma_lop', flat=True))
         
         # Apply filters
         # if ma_lop:
@@ -1202,11 +1293,12 @@ def teacher_score_management(request):
         # Get unique classes for filter dropdown
         # classes = SinhVienTDG.objects.values_list('lopSV', flat=True).distinct()
         
-        return render(request, 'teacher/score_management_detail.html', {
+        return render(request, 'teacher/score-management.html', {
             'teacher': teacher,
             'students': students,
+            'lopGV': lopGV,
             # 'classes': classes,
-            'selected_class': ma_lop,
+            # 'selected_class': ma_lop,
             # 'search_query': search,
         })
     except InfoTeacher.DoesNotExist:

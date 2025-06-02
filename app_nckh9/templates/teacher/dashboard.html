@@ -63,8 +63,12 @@
             <div class="header-right">
                 <div class="user-info">
                     <!-- <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar"> -->
-                    <span>{{ teacher.tenGV }}</span>
-                    <i class="fas fa-chevron-down"></i>
+                    <!-- <span>{{ teacher.tenGV }}</span>
+                    <i class="fas fa-chevron-down"></i> -->
+                    <a style="color: black;" href="{% url 'app_nckh9:logout' %}">
+                        <span style="color: black;">{{ teacher.tenGV }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
                 </div>
             </div>
         </div>

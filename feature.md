@@ -100,3 +100,6 @@
 6. Điểm được công bố và lưu vào hệ thống
 7. Báo cáo thống kê được tổng hợp
 8. Dữ liệu được sao lưu định kỳ
+
+
+Sau khi sinh viên chấm điểm rèn luyện, hệ thống sẽ tự động lưu lại điểm rèn luyện của sinh viên vào database và gửi vào mục chấm đrl cho giáo viên chủ nhiệm. Sau khi gvcn chấm, hệ thống sẽ gửi thông báo cho sinh viên, giáo viên và đặt trangthai của sinhvienTDG là true.
