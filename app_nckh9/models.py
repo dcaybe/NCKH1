@@ -495,3 +495,98 @@ class HocKy(models.Model):
         if self.isActive:
             HocKy.objects.exclude(id=self.id).update(isActive=False)
         super().save(*args, **kwargs)
+
+
+class ChamDRL(models.Model):
+    ma_cham_drl = models.CharField(max_length=20, unique=True, verbose_name="Mã đợt chấm DRL")
+    ten_dot_cham = models.CharField(max_length=255, verbose_name="Tên đợt chấm DRL")
+    hoc_ky = models.ForeignKey(
+        'HocKy',
+        on_delete=models.CASCADE,
+        related_name='cac_dot_cham_drl',
+        verbose_name="Học kỳ"
+    )
+    ngay_gio_bat_dau = models.DateTimeField(verbose_name="Ngày giờ bắt đầu chấm DRL")
+    ngay_gio_ket_thuc = models.DateTimeField(verbose_name="Ngày giờ kết thúc chấm DRL")
+    mo_ta = models.TextField(blank=True, null=True, verbose_name="Mô tả")
+    isActive = models.BooleanField(default=False, verbose_name="Đang hoạt động")
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Ngày tạo")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Ngày cập nhật")
+    
+    class Meta:
+        verbose_name = "Đợt chấm điểm rèn luyện"
+        verbose_name_plural = "Danh sách đợt chấm điểm rèn luyện"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.ten_dot_cham} - {self.hoc_ky}"
+    
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        # Kiểm tra ngày bắt đầu phải trước ngày kết thúc
+        if self.ngay_gio_bat_dau and self.ngay_gio_ket_thuc and self.ngay_gio_bat_dau >= self.ngay_gio_ket_thuc:
+            raise ValidationError("Ngày giờ bắt đầu phải trước ngày giờ kết thúc")
+        
+        # Kiểm tra thời gian đánh giá phải nằm trong khoảng thời gian học kỳ
+        if self.hoc_ky and (self.ngay_gio_bat_dau.date() < self.hoc_ky.ngay_bat_dau or 
+                           self.ngay_gio_ket_thuc.date() > self.hoc_ky.ngay_ket_thuc):
+            raise ValidationError("Thời gian chấm DRL phải nằm trong khoảng thời gian học kỳ")
+    
+    def save(self, *args, **kwargs):
+        # Nếu đợt chấm DRL này được set active, hủy active của các đợt chấm DRL khác
+        if self.isActive:
+            ChamDRL.objects.exclude(id=self.id).update(isActive=False)
+        super().save(*args, **kwargs)
+    
+    def is_active_now(self):
+        """Kiểm tra xem đợt chấm DRL có đang hoạt động tại thời điểm hiện tại không"""
+        now = timezone.now()
+        return self.isActive and self.ngay_gio_bat_dau <= now <= self.ngay_gio_ket_thuc
+    
+    def get_status(self):
+        """Trả về trạng thái hiện tại của đợt chấm DRL"""
+        now = timezone.now()
+        if not self.isActive:
+            return "Không hoạt động"
+        elif now < self.ngay_gio_bat_dau:
+            return "Chưa bắt đầu"
+        elif now > self.ngay_gio_ket_thuc:
+            return "Đã kết thúc"
+        else:
+            return "Đang diễn ra"
+
+
+class Rules(models.Model):
+    RULE_TYPES = [
+        ('ythuc_hoctap', 'Ý thức và kết quả học tập'),
+        ('ythuc_kyluat', 'Ý thức chấp hành nội quy, quy chế'),
+        ('hoatdong_doanthethechao', 'Hoạt động đoàn thể, thể thao'),
+        ('quanhe_congdong', 'Quan hệ cộng đồng'),
+        ('phamchat_daoduc', 'Phẩm chất đạo đức'),
+        ('phutrachlop', 'Phụ trách lớp, đoàn thể')
+    ]
+    
+    POINT_TYPES = [
+        ('cong', 'Cộng điểm'),
+        ('tru', 'Trừ điểm')
+    ]
+    
+    section = models.CharField(max_length=50, choices=RULE_TYPES, verbose_name="Mục đánh giá")
+    sub_section = models.CharField(max_length=255, verbose_name="Tiểu mục")
+    rule_name = models.CharField(max_length=500, verbose_name="Tên quy tắc")
+    point_type = models.CharField(max_length=10, choices=POINT_TYPES, verbose_name="Loại điểm")
+    points = models.CharField(max_length=20, verbose_name="Số điểm")
+    max_points = models.IntegerField(default=0, verbose_name="Điểm tối đa")
+    order = models.IntegerField(default=0, verbose_name="Thứ tự hiển thị")
+    is_active = models.BooleanField(default=True, verbose_name="Đang áp dụng")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Ngày tạo")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Ngày cập nhật")
+    note = models.TextField(blank=True, null=True, verbose_name="Ghi chú")
+    
+    class Meta:
+        verbose_name = "Quy tắc chấm điểm"
+        verbose_name_plural = "Quy tắc chấm điểm"
+        ordering = ['section', 'order']
+    
+    def __str__(self):
+        return f"{self.rule_name} ({self.points})"

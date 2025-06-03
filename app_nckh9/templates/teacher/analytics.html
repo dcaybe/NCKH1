@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="analytics.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'js/teacher/analytics.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <!-- Common sidebar template for all teacher HTML files -->
@@ -24,10 +25,10 @@
             <i class="fas fa-home"></i>
             <span>Trang chủ</span>
         </a>
-        <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
+        <!-- <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
             <i class="fas fa-users"></i>
             <span>Quản lý lớp học</span>
-        </a>
+        </a> -->
         <a href="{% url 'app_nckh9:teacher_score_management' %}" class="menu-item">
             <i class="fas fa-tasks"></i>
             <span>Quản lý điểm rèn luyện</span>
@@ -72,36 +73,36 @@
             <div class="overview-item total">
                 <i class="fas fa-university"></i>
                 <h4>Tổng số sinh viên</h4>
-                <div class="value">125</div>
+                <div class="value">{{ stats.total_students }}</div>
                 <small>100% tổng số sinh viên</small>
             </div>
             
             <div class="overview-item excellent">
                 <i class="fas fa-crown"></i>
                 <h4>Sinh viên Xuất sắc</h4>
-                <div class="value">15</div>
-                <small>12% tổng số sinh viên</small>
+                <div class="value">{{ stats.excellent }}</div>
+                <small>{{ stats.excellent_percent }}% tổng số sinh viên</small>
             </div>
             
             <div class="overview-item good">
                 <i class="fas fa-medal"></i>
                 <h4>Sinh viên Giỏi</h4>
-                <div class="value">42</div>
-                <small>33.6% tổng số sinh viên</small>
+                <div class="value">{{ stats.good }}</div>
+                <small>{{ stats.good_percent }}% tổng số sinh viên</small>
             </div>
             
             <div class="overview-item fair">
                 <i class="fas fa-award"></i>
                 <h4>Sinh viên Khá</h4>
-                <div class="value">55</div>
-                <small>44% tổng số sinh viên</small>
+                <div class="value">{{ stats.average }}</div>
+                <small>{{ stats.average_percent }}% tổng số sinh viên</small>
             </div>
 
             <div class="overview-item needs-improvement">
                 <i class="fas fa-exclamation-triangle"></i>
                 <h4>Cần cải thiện</h4>
-                <div class="value">13</div>
-                <small>10.4% tổng số sinh viên</small>
+                <div class="value">{{ stats.below_average }}</div>
+                <small>{{ stats.below_average_percent }}% tổng số sinh viên</small>
             </div>
         </div>
 
@@ -125,15 +126,15 @@
             </div>
 
             <div class="chart-card">
-                <h3>Phân tích theo tiêu chí</h3>
-                <div class="chart-container radar-chart">
+                <h3>Phân tích tiêu chí</h3>
+                <div class="chart-container">
                     <canvas id="criteriaRadar"></canvas>
                 </div>
             </div>
 
             <div class="chart-card">
                 <h3>So sánh giữa các lớp</h3>
-                <div class="chart-container bar-chart">
+                <div class="chart-container">
                     <canvas id="classComparisonBar"></canvas>
                 </div>
             </div>
@@ -148,8 +149,412 @@
            
             
         </div>
+        
+        <!-- Nút xuất báo cáo -->
+        <div class="text-center mt-4" style="text-align: center; margin-top: 20px;">
+            <button id="exportPdf" style="background-color: #4e73df; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-file-pdf" style="margin-right: 8px;"></i>Xuất báo cáo PDF
+            </button>
+        </div>
     </div>
 
-    <script src="analytics.js"></script>
+    <script>
+        // Nhận dữ liệu từ view
+        let chartData;
+        let rawData = '{{ chart_data|escapejs }}';
+        console.log('Raw chart data:', rawData);
+        
+        try {
+            if (rawData && rawData.trim() !== '') {
+                chartData = JSON.parse(rawData);
+                console.log('Chart data loaded:', chartData);
+            } else {
+                console.error('Raw chart data is empty or undefined');
+                chartData = null;
+            }
+        } catch (error) {
+            console.error('Error parsing chart data:', error);
+            console.error('Raw data that failed to parse:', rawData);
+            chartData = null;
+        }
+        
+        // Fallback data if chartData is null or undefined
+        if (!chartData) {
+            console.log('Using fallback chart data');
+            chartData = {
+                grade_distribution: [0, 0, 0, 0],
+                score_trend: [],
+                class_comparison: [],
+                criteria_analysis: []
+            };
+        }
+        
+        // Hàm định dạng số
+        const formatNumber = (num) => {
+            return Math.round(num * 10) / 10;
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded, initializing charts');
+            
+            // 1. Biểu đồ phân bố điểm rèn luyện
+            console.log('Grade distribution data:', chartData?.grade_distribution);
+            if (chartData && chartData.grade_distribution && chartData.grade_distribution.length > 0 && chartData.grade_distribution.some(val => val > 0)) {
+                const gradeDistributionPie = document.getElementById('gradeDistributionPie').getContext('2d');
+                new Chart(gradeDistributionPie, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Xuất sắc (90-100)', 'Giỏi (80-89)', 'Khá (70-79)', 'Cần cải thiện (<70)'],
+                        datasets: [{
+                            data: chartData.grade_distribution,
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.8)',
+                                'rgba(23, 162, 184, 0.8)',
+                                'rgba(255, 193, 7, 0.8)',
+                                'rgba(220, 53, 69, 0.8)'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = Math.round((value / total) * 100);
+                                        return `${label}: ${value} SV (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('gradeDistributionPie').parentElement.innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #6c757d;">Không có dữ liệu để hiển thị</div>';
+            }
+            
+            // 2. Biểu đồ xu hướng điểm theo thời gian
+            console.log('Score trend data:', chartData?.score_trend);
+            if (chartData && chartData.score_trend && chartData.score_trend.length > 0) {
+                const scoreTrendLine = document.getElementById('scoreTrendLine').getContext('2d');
+                new Chart(scoreTrendLine, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.score_trend.map(item => item.period),
+                        datasets: [{
+                            label: 'Điểm trung bình',
+                            data: chartData.score_trend.map(item => formatNumber(item.avg_score)),
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 50,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + ' điểm';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Điểm TB: ${context.raw} điểm`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('scoreTrendLine').parentElement.innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #6c757d;">Không có dữ liệu để hiển thị</div>';
+            }
+            
+            // Biểu đồ so sánh giữa các lớp
+            if (chartData.class_comparison && chartData.class_comparison.length > 0) {
+                const classComparisonBar = document.getElementById('classComparisonBar').getContext('2d');
+                new Chart(classComparisonBar, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.class_comparison.map(item => item.class_name),
+                        datasets: [{
+                            label: 'Điểm trung bình',
+                            data: chartData.class_comparison.map(item => item.avg_score),
+                            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 50,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Biểu đồ phân tích theo tiêu chí
+            // 3. Biểu đồ phân tích tiêu chí
+            console.log('Criteria analysis data:', chartData?.criteria_analysis);
+            if (chartData && chartData.criteria_analysis && chartData.criteria_analysis.length > 0 && chartData.criteria_analysis.some(val => val > 0)) {
+                const criteriaRadar = document.getElementById('criteriaRadar').getContext('2d');
+                new Chart(criteriaRadar, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Ý thức học tập', 'Ý thức kỷ luật', 'Hoạt động đoàn thể', 'Quan hệ cộng đồng', 'Phẩm chất đạo đức'],
+                        datasets: [{
+                            label: 'Điểm trung bình',
+                            data: chartData.criteria_analysis,
+                            fill: true,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgb(54, 162, 235)',
+                            pointBackgroundColor: 'rgb(54, 162, 235)',
+                            pointBorderColor: '#fff',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        elements: {
+                            line: {
+                                borderWidth: 3
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: true
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                ticks: {
+                                    stepSize: 20,
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatNumber(context.raw) + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('criteriaRadar').parentElement.innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #6c757d;">Không có dữ liệu để hiển thị</div>';
+            }
+            
+            // 4. Biểu đồ phân bố chi tiết theo thời gian
+            console.log('Detailed score stack data:', chartData?.detailed_score_stack);
+            if (chartData && chartData.detailed_score_stack && chartData.detailed_score_stack.length > 0) {
+                const detailedScoreStack = document.getElementById('detailedScoreStack').getContext('2d');
+                new Chart(detailedScoreStack, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.detailed_score_stack.map(item => item.period),
+                        datasets: [
+                            {
+                                label: 'Xuất sắc',
+                                data: chartData.detailed_score_stack.map(item => item.excellent),
+                                backgroundColor: '#4e73df',
+                                borderColor: '#4e73df',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Giỏi',
+                                data: chartData.detailed_score_stack.map(item => item.good),
+                                backgroundColor: '#1cc88a',
+                                borderColor: '#1cc88a',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Khá',
+                                data: chartData.detailed_score_stack.map(item => item.average),
+                                backgroundColor: '#f6c23e',
+                                borderColor: '#f6c23e',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Cần cải thiện',
+                                data: chartData.detailed_score_stack.map(item => item.below_average),
+                                backgroundColor: '#e74a3b',
+                                borderColor: '#e74a3b',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                title: {
+                                    display: true,
+                                    text: 'Học kỳ'
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                title: {
+                                    display: true,
+                                    text: 'Số sinh viên'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Phân bố điểm rèn luyện theo thời gian'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('detailedScoreStack').parentElement.innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #6c757d;">Không có dữ liệu để hiển thị</div>';
+            }
+            
+            // 5. Biểu đồ so sánh lớp
+            console.log('Class comparison data:', chartData?.class_comparison);
+            if (chartData && chartData.class_comparison && chartData.class_comparison.length > 0) {
+                const classComparisonCtx = document.getElementById('classComparisonBar').getContext('2d');
+                
+                const backgroundColors = chartData.class_comparison.map((item, index) => {
+                    const hue = 210; // Màu xanh dương
+                    const saturation = 70;
+                    const lightness = 50 + (index * 5);
+                    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                });
+
+                new Chart(classComparisonCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.class_comparison.map(item => item.class_name),
+                        datasets: [{
+                            label: 'Điểm trung bình',
+                            data: chartData.class_comparison.map(item => item.avg_score),
+                            backgroundColor: backgroundColors,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    afterBody: function(context) {
+                                        const index = context[0].dataIndex;
+                                        const item = chartData.class_comparison[index];
+                                        return `Số SV: ${item.student_count}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Điểm trung bình'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Lớp'
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('classComparisonBar').parentElement.innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #6c757d;">Không có dữ liệu để hiển thị</div>';
+            }
+            
+            // Xử lý xuất PDF
+            document.getElementById('exportPdf')?.addEventListener('click', function() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                const element = document.querySelector('.main-content');
+                const buttons = document.querySelectorAll('button');
+                
+                // Ẩn các nút trước khi chụp
+                buttons.forEach(btn => btn.style.display = 'none');
+                
+                html2canvas(element, {
+                    scale: 2,
+                    logging: true,
+                    useCORS: true
+                }).then(canvas => {
+                    // Hiển thị lại các nút
+                    buttons.forEach(btn => btn.style.display = '');
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210; // A4 width in mm
+                    const pageHeight = 295; // A4 height in mm
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    doc.save('bao-cao-danh-gia.pdf');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

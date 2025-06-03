@@ -26,10 +26,10 @@
                 <i class="fas fa-home"></i>
                 <span>Trang chủ</span>
             </a>
-            <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
+            <!-- <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
                 <i class="fas fa-users"></i>
                 <span>Quản lý lớp học</span>
-            </a>
+            </a> -->
             <a href="{% url 'app_nckh9:teacher_score_management' %}" class="menu-item">
                 <i class="fas fa-tasks"></i>
                 <span>Quản lý điểm rèn luyện</span>
@@ -80,40 +80,72 @@
                     <div class="stat-card primary">
                         <div class="stat-info">
                             <h3>Tổng sinh viên</h3>
-                            <div class="stat-number">125</div>
+                            <div class="stat-number">{{ stats.total_students }}</div>
                             <div class="stat-trend positive">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>+5% so với kỳ trước</span>
+                                <i class="fas fa-users"></i>
+                                <span>Lớp cố vấn</span>
                             </div>
                         </div>
                     </div>
                     <div class="stat-card success">
                         <div class="stat-info">
                             <h3>Đã chấm điểm</h3>
-                            <div class="stat-number">98/125</div>
-                            <small>
-                                <i class="fas fa-chart-line"></i>
-                                78.4% hoàn thành
-                            </small>
+                            {% if stats.total_students > 0 %}
+                                <div class="stat-number">{{ stats.pending_scores }}/{{ stats.total_students }}</div>
+                                <small>
+                                    <i class="fas fa-chart-line"></i>
+                                    {% if stats.pending_scores > 0 %}
+                                        {% widthratio stats.pending_scores stats.total_students 100 as pending_percent %}
+                                        {{ 100|add:'-'|add:pending_percent }}% hoàn thành
+                                    {% else %}
+                                        100% hoàn thành
+                                    {% endif %}
+                                </small>
+                            {% else %}
+                                <div class="stat-number">0/0</div>
+                                <small>
+                                    <i class="fas fa-info-circle"></i>
+                                    Không có dữ liệu
+                                </small>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="stat-card warning">
                         <div class="stat-info">
                             <h3>Thời hạn còn lại</h3>
-                            <div class="stat-number">5 ngày</div>
-                            <small class="warning">
-                                <i class="fas fa-clock"></i>
-                                Sắp hết hạn
-                            </small>
+                            {% if active_cham_drl and stats.days_remaining is not None %}
+                                <div class="stat-number">{{ stats.days_remaining }} ngày</div>
+                                {% if stats.days_remaining <= 5 %}
+                                <small class="warning">
+                                    <i class="fas fa-clock"></i>
+                                    Sắp hết hạn
+                                </small>
+                                {% else %}
+                                <small class="info">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    {{ active_cham_drl.ten_dot_cham }}
+                                </small>
+                                {% endif %}
+                            {% else %}
+                                <div class="stat-number">0 ngày</div>
+                                <small class="danger">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    Không có đợt chấm nào đang hoạt động
+                                </small>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="stat-card info">
                         <div class="stat-info">
                             <h3>Điểm TB lớp</h3>
-                            <div class="stat-number">85.5</div>
+                            <div class="stat-number">{{ stats.avg_score|default:"--" }}</div>
                             <small class="info">
-                                <i class="fas fa-arrow-up"></i>
-                                +2.3 điểm
+                                <i class="fas fa-chart-line"></i>
+                                {% if stats.pending_scores > 0 %}
+                                    Còn {{ stats.pending_scores }} SV chưa chấm
+                                {% else %}
+                                    Đã hoàn thành chấm điểm
+                                {% endif %}
                             </small>
                         </div>
                     </div>
@@ -124,16 +156,16 @@
             <div class="card quick-actions" style="grid-column: span 6">
                 <h2><i class="fas fa-bolt"></i> Thao tác nhanh</h2>
                 <div class="action-grid">
-                    <button class="action-btn">
+                    <a href="{% url 'app_nckh9:teacher_score_management' %}" class="action-btn">
                         <i class="fas fa-tasks"></i>
                         <span>Chấm điểm</span>
-                        <small>27 SV chưa chấm</small>
-                    </button>
-                    <button class="action-btn">
+                        <small>{% if stats.pending_scores > 0 %}{{ stats.pending_scores }} SV chưa chấm{% else %}Xem danh sách điểm{% endif %}</small>
+                    </a>
+                    <a href="{% url 'app_nckh9:teacher_analytics' %}" class="action-btn">
                         <i class="fas fa-file-export"></i>
                         <span>Xuất báo cáo</span>
                         <small>Tổng kết học kỳ</small>
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -141,18 +173,34 @@
             <div class="card notifications-summary" style="grid-column: span 6">
                 <h2><i class="fas fa-bell"></i> Quản lý thông báo mới</h2>
                 <div class="notification-list">
+                    {% if active_cham_drl %}
                     <div class="notification-item">
-                        <i class="fas fa-exclamation-circle"></i>
+                        <i class="fas fa-calendar-alt"></i>
                         <div class="notification-content">
-                            <p>Hạn nộp điểm rèn luyện</p>
+                            <p>Đợt chấm DRL: {{ active_cham_drl.ten_dot_cham }}</p>
+                            <small>{{ active_cham_drl.ngay_gio_bat_dau|date:"d/m/Y H:i" }} - {{ active_cham_drl.ngay_gio_ket_thuc|date:"d/m/Y H:i" }}</small>
                         </div>
                     </div>
+                    {% endif %}
+                    
+                    {% if notifications %}
+                        {% for notification in notifications %}
+                        <div class="notification-item">
+                            <i class="fas fa-bell"></i>
+                            <div class="notification-content">
+                                <p>{{ notification.title }}</p>
+                                <small>{{ notification.created_at|date:"d/m/Y" }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
                     <div class="notification-item">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-info-circle"></i>
                         <div class="notification-content">
-                            <p>Họp giao ban GVCN  <i class="fas fa-map-marker-alt"></i> P.305-A2 </p>
+                            <p>Không có thông báo mới</p>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -162,23 +210,23 @@
                 <div class="overview-stats1">
                     <div class="overview-item">
                         <h4>Sinh viên Xuất sắc</h4>
-                        <div class="value">15</div>
-                        <small>12% lớp</small>
+                        <div class="value">{{ stats.excellent }}</div>
+                        <small>{% if stats.total_students > 0 %}{{ stats.excellent|floatformat:1 }}% lớp{% else %}--{% endif %}</small>
                     </div>
                     <div class="overview-item">
                         <h4>Sinh viên Giỏi</h4>
-                        <div class="value">42</div>
-                        <small>33.6% lớp</small>
+                        <div class="value">{{ stats.good }}</div>
+                        <small>{% if stats.total_students > 0 %}{{ stats.good|floatformat:1 }}% lớp{% else %}--{% endif %}</small>
                     </div>
                     <div class="overview-item">
                         <h4>Sinh viên Khá</h4>
-                        <div class="value">55</div>
-                        <small>44% lớp</small>
+                        <div class="value">{{ stats.average }}</div>
+                        <small>{% if stats.total_students > 0 %}{{ stats.average|floatformat:1 }}% lớp{% else %}--{% endif %}</small>
                     </div>
                     <div class="overview-item">
                         <h4>Cần cải thiện</h4>
-                        <div class="value">13</div>
-                        <small>10.4% lớp</small>
+                        <div class="value">{{ stats.below_average }}</div>
+                        <small>{% if stats.total_students > 0 %}{{ stats.below_average|floatformat:1 }}% lớp{% else %}--{% endif %}</small>
                     </div>
                 </div>
             </div>

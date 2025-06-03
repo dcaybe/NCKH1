@@ -95,6 +95,10 @@ view_urlpatterns = [
     path('admin/batch-approval/', views.admin_batch_approval, name='admin_batch_approval'),
     path('admin/activity-history/', views.admin_activity_history, name='admin_activity_history'),
     path('admin/ai-assistant/', views.admin_ai_assistant, name='admin_ai_assistant'),
+    path('admin/cham-drl/', views.admin_cham_drl, name='admin_cham_drl'),
+    path('admin/cham-drl/edit/', views.admin_cham_drl_edit, name='admin_cham_drl_edit'),
+    path('admin/cham-drl/delete/', views.admin_cham_drl_delete, name='admin_cham_drl_delete'),
+    path('admin/cham-drl/toggle-active/<int:cham_drl_id>/', views.admin_cham_drl_toggle_active, name='admin_cham_drl_toggle_active'),
 ]
 
 # Combine all URL patterns
