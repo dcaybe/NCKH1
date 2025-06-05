@@ -980,10 +980,13 @@ def student_show_point(request):
 
 
 
-
+@login_required
 def student_ai_assistant(request):
-   
-    return render(request, 'students/ai-assistant.html')
+    user = request.user
+
+    student = InfoStudent.objects.get(emailSV = user.email)
+
+    return render(request, 'students/ai-assistant.html',{'student':student})
 
 # def student_score_rating(request):
 #     return render(request, 'students/score_rating.html')

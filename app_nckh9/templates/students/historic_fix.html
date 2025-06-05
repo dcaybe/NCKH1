@@ -63,9 +63,11 @@
                 <h1>Lịch sử hoạt động</h1>
             </div>
             <div class="header-right">
-                <div class="user-info">
-                    <span>Nguyễn Văn A</span>
-                    <i class="fas fa-chevron-down"></i>
+               <div class="user-info">
+                    <a style="color: black;" href="{% url 'app_nckh9:logout' %}">
+                        <span style="color: black;">{{ student.tenSV }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
                 </div>
             </div>
         </div>

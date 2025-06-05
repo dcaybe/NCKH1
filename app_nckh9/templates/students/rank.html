@@ -60,10 +60,12 @@
     <div class="main-content">
         <div class="header">
             <h1>Bảng xếp hạng điểm rèn luyện</h1>
-            <div class="user-info">
-
-                <span>{{ sinhvien.tenSV }}</span>
-            </div>
+           <div class="user-info">
+                    <a style="color: black;" href="{% url 'app_nckh9:logout' %}">
+                        <span style="color: black;">{{ sinhvien.tenSV }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
         </div>
 
         <div class="rank-container">

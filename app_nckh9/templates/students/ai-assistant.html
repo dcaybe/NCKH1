@@ -102,10 +102,11 @@
                 <h1>AI hỗ trợ</h1>
             </div>
             <div class="header-right">
-                <div class="user-info">
-                    <!-- <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar"> -->
-                    <span>Nguyễn Văn A</span>
-                    <i class="fas fa-chevron-down"></i>
+           <div class="user-info">
+                    <a style="color: black;" href="{% url 'app_nckh9:logout' %}">
+                        <span style="color: black;">{{ student.tenSV }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
                 </div>
             </div>
         </div>
