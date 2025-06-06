@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đợt chấm điểm rèn luyện</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <style>
+        .badge-success {
+            background-color: #28a745;
+        }
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .badge-danger {
+            background-color: #dc3545;
+        }
+        .badge-info {
+            background-color: #17a2b8;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hệ thống QL Điểm RL</h2>
+            <p>Giáo vụ khoa</p>
+        </div>
+        <div class="menu">
+            <a href="{% url 'app_nckh9:admin_dashboard' %}" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_scoring_rules' %}" class="menu-item">
+                <i class="fas fa-cogs"></i>
+                <span>Quy tắc chấm điểm</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_batch_approval' %}" class="menu-item">
+                <i class="fas fa-check-double"></i>
+                <span>Phê duyệt hàng loạt</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_statistics' %}" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Thống kê & Báo cáo</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_sync' %}" class="menu-item">
+                <i class="fas fa-sync"></i>
+                <span>Đồng bộ dữ liệu</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_user_management' %}" class="menu-item">
+                <i class="fas fa-users-cog"></i>
+                <span>Quản lý người dùng</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_notifications' %}" class="menu-item">
+                <i class="fas fa-newspaper"></i>
+                <span>Quản lý thông báo</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_cham_drl' %}" class="menu-item active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Quản lý đợt chấm DRL</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_activity_history' %}" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử hoạt động</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_backup_restore' %}" class="menu-item">
+                <i class="fas fa-database"></i>
+                <span>Sao lưu & Khôi phục</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_ai_assistant' %}" class="menu-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Hỗ trợ</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <h1>Quản lý đợt chấm điểm rèn luyện</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span>{{ user.get_full_name }}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown">
+                    <a href="{% url 'app_nckh9:admin_user_management' %}">
+                        <i class="fas fa-user-cog"></i> Thông tin cá nhân
+                    </a>
+                    <a href="{% url 'app_nckh9:reset_password' %}">
+                        <i class="fas fa-key"></i> Đổi mật khẩu
+                    </a>
+                    <a href="{% url 'app_nckh9:logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Quản lý đợt chấm điểm rèn luyện</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Button to add new ChamDRL -->
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addChamDRLModal">
+                        <i class="fas fa-plus"></i> Thêm đợt chấm điểm mới
+                    </button>
+
+                    <!-- Table of existing ChamDRL records -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Mã đợt chấm</th>
+                                    <th>Tên đợt chấm</th>
+                                    <th>Học kỳ</th>
+                                    <th>Thời gian bắt đầu</th>
+                                    <th>Thời gian kết thúc</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cham_drl in cham_drl_list %}
+                                <tr>
+                                    <td>{{ cham_drl.ma_cham_drl }}</td>
+                                    <td>{{ cham_drl.ten_dot_cham }}</td>
+                                    <td>{{ cham_drl.hoc_ky }}</td>
+                                    <td>{{ cham_drl.ngay_gio_bat_dau|date:"d/m/Y H:i" }}</td>
+                                    <td>{{ cham_drl.ngay_gio_ket_thuc|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if cham_drl.get_status == 'Đang diễn ra' %}badge-success
+                                            {% elif cham_drl.get_status == 'Chưa bắt đầu' %}badge-warning
+                                            {% elif cham_drl.get_status == 'Đã kết thúc' %}badge-secondary
+                                            {% else %}badge-danger{% endif %}">
+                                            {{ cham_drl.get_status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info edit-btn" 
+                                                data-id="{{ cham_drl.id }}"
+                                                data-ma="{{ cham_drl.ma_cham_drl }}"
+                                                data-ten="{{ cham_drl.ten_dot_cham }}"
+                                                data-hocky="{{ cham_drl.hoc_ky.id }}"
+                                                data-batdau="{{ cham_drl.ngay_gio_bat_dau|date:'Y-m-d\TH:i' }}"
+                                                data-ketthuc="{{ cham_drl.ngay_gio_ket_thuc|date:'Y-m-d\TH:i' }}"
+                                                data-mota="{{ cham_drl.mo_ta }}"
+                                                data-active="{{ cham_drl.isActive }}"
+                                                data-toggle="modal" data-target="#editChamDRLModal">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger delete-btn" 
+                                                data-id="{{ cham_drl.id }}" 
+                                                data-toggle="modal" data-target="#deleteChamDRLModal">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </button>
+                                        {% if not cham_drl.isActive %}
+                                        <form method="post" action="{% url 'app_nckh9:admin_cham_drl_toggle_active' cham_drl.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i class="fas fa-check"></i> Kích hoạt
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center">Chưa có đợt chấm điểm rèn luyện nào được tạo.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add ChamDRL Modal -->
+<div class="modal fade" id="addChamDRLModal" tabindex="-1" role="dialog" aria-labelledby="addChamDRLModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addChamDRLModalLabel">Thêm đợt chấm điểm rèn luyện mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="{% url 'app_nckh9:admin_cham_drl' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ma_cham_drl">Mã đợt chấm DRL <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="ma_cham_drl" name="ma_cham_drl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ten_dot_cham">Tên đợt chấm DRL <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="ten_dot_cham" name="ten_dot_cham" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hoc_ky">Học kỳ <span class="text-danger">*</span></label>
+                        <select class="form-control" id="hoc_ky" name="hoc_ky" required>
+                            <option value="">-- Chọn học kỳ --</option>
+                            {% for hk in hoc_ky_list %}
+                            <option value="{{ hk.id }}">{{ hk }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngay_gio_bat_dau">Thời gian bắt đầu <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="ngay_gio_bat_dau" name="ngay_gio_bat_dau" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngay_gio_ket_thuc">Thời gian kết thúc <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="ngay_gio_ket_thuc" name="ngay_gio_ket_thuc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mo_ta">Mô tả</label>
+                        <textarea class="form-control" id="mo_ta" name="mo_ta" rows="3"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="isActive" name="isActive">
+                        <label class="form-check-label" for="isActive">Kích hoạt ngay</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit ChamDRL Modal -->
+<div class="modal fade" id="editChamDRLModal" tabindex="-1" role="dialog" aria-labelledby="editChamDRLModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editChamDRLModalLabel">Chỉnh sửa đợt chấm điểm rèn luyện</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="{% url 'app_nckh9:admin_cham_drl_edit' %}">
+                {% csrf_token %}
+                <input type="hidden" id="edit_id" name="id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="edit_ma_cham_drl">Mã đợt chấm DRL <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="edit_ma_cham_drl" name="ma_cham_drl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_ten_dot_cham">Tên đợt chấm DRL <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="edit_ten_dot_cham" name="ten_dot_cham" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_hoc_ky">Học kỳ <span class="text-danger">*</span></label>
+                        <select class="form-control" id="edit_hoc_ky" name="hoc_ky" required>
+                            <option value="">-- Chọn học kỳ --</option>
+                            {% for hk in hoc_ky_list %}
+                            <option value="{{ hk.id }}">{{ hk }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_ngay_gio_bat_dau">Thời gian bắt đầu <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="edit_ngay_gio_bat_dau" name="ngay_gio_bat_dau" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_ngay_gio_ket_thuc">Thời gian kết thúc <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="edit_ngay_gio_ket_thuc" name="ngay_gio_ket_thuc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_mo_ta">Mô tả</label>
+                        <textarea class="form-control" id="edit_mo_ta" name="mo_ta" rows="3"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="edit_isActive" name="isActive">
+                        <label class="form-check-label" for="edit_isActive">Kích hoạt</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete ChamDRL Modal -->
+<div class="modal fade" id="deleteChamDRLModal" tabindex="-1" role="dialog" aria-labelledby="deleteChamDRLModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteChamDRLModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa đợt chấm điểm rèn luyện này không?</p>
+                <p class="text-danger">Lưu ý: Hành động này không thể hoàn tác.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <form method="post" action="{% url 'app_nckh9:admin_cham_drl_delete' %}" id="deleteChamDRLForm">
+                    {% csrf_token %}
+                    <input type="hidden" id="delete_id" name="id">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script src="{% static 'js/admin/common.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize datatable
+        $('#cham-drl-table').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Vietnamese.json"
+            },
+            "order": [[0, "desc"]],
+            "responsive": true
+        });
+
+        // Populate edit modal with data
+        $('.edit-cham-drl-btn').click(function() {
+            var id = $(this).data('id');
+            var ma_cham_drl = $(this).data('ma-cham-drl');
+            var ten_dot_cham = $(this).data('ten-dot-cham');
+            var hoc_ky = $(this).data('hoc-ky');
+            var ngay_gio_bat_dau = $(this).data('ngay-gio-bat-dau');
+            var ngay_gio_ket_thuc = $(this).data('ngay-gio-ket-thuc');
+            var mo_ta = $(this).data('mo-ta');
+            var isActive = $(this).data('is-active');
+
+            $('#edit_id').val(id);
+            $('#edit_ma_cham_drl').val(ma_cham_drl);
+            $('#edit_ten_dot_cham').val(ten_dot_cham);
+            $('#edit_hoc_ky').val(hoc_ky);
+            $('#edit_ngay_gio_bat_dau').val(ngay_gio_bat_dau);
+            $('#edit_ngay_gio_ket_thuc').val(ngay_gio_ket_thuc);
+            $('#edit_mo_ta').val(mo_ta);
+            $('#edit_isActive').prop('checked', isActive === 'True');
+        });
+
+        // Populate delete modal with data
+        $('.delete-cham-drl-btn').click(function() {
+            var id = $(this).data('id');
+            var ten_dot_cham = $(this).data('ten-dot-cham');
+            
+            $('#delete_id').val(id);
+            $('#delete_confirmation_text').text('Bạn có chắc chắn muốn xóa đợt chấm "' + ten_dot_cham + '" không?');
+        });
+
+        // Show messages and auto-hide after 5 seconds
+        $('.alert').fadeIn().delay(5000).fadeOut();
+
+        // Toggle user dropdown
+        $('.user-info').click(function() {
+            $('.user-dropdown').toggleClass('active');
+        });
+    });
+</script>
+
+</body>
+</html>

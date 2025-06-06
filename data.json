@@ -1,0 +1,4496 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "adminmanage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "analysts"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "analysts2"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "complainthistory"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "gvcndanhgia"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "historyactive"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "historypoint"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "hoidongkhoachamdiem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "homepagemanager"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "infostudent"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "infoteacher"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "kairachatbot"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "login"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "nofitication"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "nofiticationmanager"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "pendingstudents"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "privatenofitication"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "rules"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "sinhvientdg"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "studentsreport"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "teachermanager"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "ranking"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "asyncexporttask"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "asyncsynctask"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "hocky"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "token_blacklist",
+    "model": "blacklistedtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "token_blacklist",
+    "model": "outstandingtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "social_django",
+    "model": "association"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "social_django",
+    "model": "code"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "social_django",
+    "model": "nonce"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "social_django",
+    "model": "usersocialauth"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "social_django",
+    "model": "partial"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sites",
+    "model": "site"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "account",
+    "model": "emailaddress"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "account",
+    "model": "emailconfirmation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialaccount"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialapp"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "oauth2_provider",
+    "model": "application"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "oauth2_provider",
+    "model": "accesstoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "oauth2_provider",
+    "model": "grant"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "oauth2_provider",
+    "model": "refreshtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "oauth2_provider",
+    "model": "idtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "lophoc"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "app_nckh9",
+    "model": "chamdrl"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2f9zkda3nq50jydypqabi6lf3jpg2bo1",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlnxJ_5Q0ucM1nq9xgFkS3FSIe5OIqWA9s3Me7MA21rC1mkJc2JXJtjld4uAT6oHSA-o98ax1XWZIz8UftLOp5bodTvdv4MCvew1CS0jJEcWJFmjNFi0qLxy2smszRhpRJGGmHfTDN5GmQ1ak5VH74Vnny_nkje8:1uN6yS:vV5tmk3y9Tgq2ZbonEhDPrv_otzsl-lfbVoky9Lg9Lg",
+    "expire_date": "2025-06-19T09:33:24.474Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "75qa4uvt2jra7hmrumy15mpehx3cy566",
+  "fields": {
+    "session_data": ".eJxVjDEOwjAMRe-SGUVuFKc1IztniOLEpgXUSE07Ie4OlTrA-t97_2Vi2tYxbk2WOBVzNp05_W6c8kPmHZR7mm_V5jqvy8R2V-xBm73WIs_L4f4djKmN31pSdgjKQ1FS9DkEBdf1pExDAfQgwbtBkfssrEKaEIAYyCFhX7J5fwD7hjhL:1uMNs4:5HAHSPnV9VRxcevIxViwil5dhc0HjiMXtxqo0BEoVx4",
+    "expire_date": "2025-06-17T09:23:48.639Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qcuf3h08s0b96prw21f1mzqwmtonlspr",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlmyw3odSnrOYO3PJIASKZ8q4u4QKQW0b2be5gqtS1fW2abSq7u46E6_G5M8bdiBPmi4j17GYZl69rviDzr726j2uh7u30FHc_etRYK1SplDMlHBlCBCPteUKEYOpDERQa4I2KAwMjatBgDDtmaL4N4f-9I4Gw:1uM1eQ:yJCUts61anAjIuzkFjizKtbooO75II9GmTmwkyXmnKw",
+    "expire_date": "2025-06-16T09:40:14.499Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wq8ctmwqzn9p17uy4gmxc68kzuohxkna",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8KS7d-w1kYAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKM7Mw0O_1uCfKD2g7wDu3Wee5tXebEd4UfdPBrR3peDvfvoMKo39pKwslZlNLbbAvqoEwQNpBCZUzwfgLlSJdgnEwoSYCikkGgd8Uq59n7A8bhN1Y:1uKdgZ:KATfRo_adnQvw_W8xjJ8S-DH1fQiP8Z8ZbMV_FmgVgg",
+    "expire_date": "2025-06-12T13:52:43.375Z"
+  }
+},
+{
+  "model": "app_nckh9.infostudent",
+  "pk": 1,
+  "fields": {
+    "khoaHoc": 2023,
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "DCCTCT67_08B",
+    "gender": "Nam",
+    "dob": "2004-06-13",
+    "phone": 1234567890,
+    "emailSV": "2221050508@student.humg.edu.vn",
+    "status": "Vẫn học",
+    "address": "Bắc Ninh",
+    "chuyenNganh": "Công nghệ thông tin địa học",
+    "khoaSV": "67",
+    "nienkhoa": "2023 - 2027",
+    "heDaoTao": "4.5 năm",
+    "coVanHocTap": "Trần Mai Hương",
+    "tkCoVan": "abc",
+    "emialCoVan": "tranmaihuong@gmail.com",
+    "phoneCoVan": 123456,
+    "boMonCoVan": "CNTT",
+    "ketqua": {
+      "student_id": "2004012345",
+      "full_name": "Đoàn Văn Hùng",
+      "class": "CNTTĐH-K17",
+      "semester": "HK2-2024",
+      "total_score": 85,
+      "classification": "Tốt",
+      "details": {
+        "1_tu_giac": {
+          "description": "Ý thức học tập",
+          "max_score": 20,
+          "score": 18
+        },
+        "2_chanh_tri_dao_duc": {
+          "description": "Ý thức chấp hành nội quy, quy chế và đạo đức",
+          "max_score": 25,
+          "score": 22
+        },
+        "3_tham_gia_hoat_dong": {
+          "description": "Tham gia hoạt động chính trị, xã hội, văn hóa, văn nghệ, thể thao, phòng chống tệ nạn",
+          "max_score": 20,
+          "score": 15
+        },
+        "4_y_thuc_cong_dan": {
+          "description": "Ý thức công dân và quan hệ cộng đồng",
+          "max_score": 15,
+          "score": 13
+        },
+        "5_chap_hanh_quy_dinh": {
+          "description": "Chấp hành các quy định khác",
+          "max_score": 20,
+          "score": 17
+        }
+      },
+      "review_status": {
+        "student_confirmed": true,
+        "class_monitor_reviewed": true,
+        "teacher_reviewed": true,
+        "faculty_approved": true
+      },
+      "history": [
+        {
+          "action": "submitted_by_student",
+          "by": "Đoàn Văn Hùng",
+          "timestamp": "2025-05-01T09:30:00"
+        },
+        {
+          "action": "reviewed_by_class_monitor",
+          "by": "Nguyễn Văn A",
+          "timestamp": "2025-05-03T10:15:00"
+        },
+        {
+          "action": "reviewed_by_teacher",
+          "by": "ThS. Trần Thị B",
+          "timestamp": "2025-05-06T14:00:00"
+        },
+        {
+          "action": "approved_by_faculty",
+          "by": "P.Khoa CNTT&ĐH",
+          "timestamp": "2025-05-10T08:00:00"
+        }
+      ]
+    },
+    "semester": "2",
+    "lop_hoc": 1
+  }
+},
+{
+  "model": "app_nckh9.infoteacher",
+  "pk": 1,
+  "fields": {
+    "maGV": 12345678,
+    "tenGV": "teacher",
+    "gender": "Nam",
+    "dob": "2004-06-13",
+    "phone": 1234567890,
+    "emailCoVan": "teacher@gmail.com",
+    "status": "Vẫn học",
+    "address": "Bắc Ninh",
+    "boMonCoVan": "CNTT",
+    "hocViCoVan": "Thac si"
+  }
+},
+{
+  "model": "app_nckh9.sinhvientdg",
+  "pk": 4,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": false,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": false,
+    "diemCDSV": 0,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": false,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": false,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": false,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 43,
+    "xepLoai": "Yếu",
+    "trangthai": true
+  }
+},
+{
+  "model": "app_nckh9.sinhvientdg",
+  "pk": 5,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 5,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 15,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 5,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": true,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 95,
+    "xepLoai": "Xuất sắc",
+    "trangthai": true
+  }
+},
+{
+  "model": "app_nckh9.sinhvientdg",
+  "pk": 6,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 15,
+    "koThamgiaDaydu": true,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": true,
+    "chaphanhDang": true,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 7,
+    "caccapKhenThuong": true,
+    "BCSvotrachnghiem": true,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 85,
+    "xepLoai": "Tốt",
+    "trangthai": true
+  }
+},
+{
+  "model": "app_nckh9.sinhvientdg",
+  "pk": 7,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": true,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 5,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 3,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": true,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": true,
+    "giupdoCongDong": true,
+    "gayMatDoanKet": true,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 7,
+    "caccapKhenThuong": true,
+    "BCSvotrachnghiem": true,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 73,
+    "xepLoai": "Khá",
+    "trangthai": true
+  }
+},
+{
+  "model": "app_nckh9.sinhvientdg",
+  "pk": 8,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 0,
+    "koDungPhao": false,
+    "koDiHocMuon": false,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": false,
+    "diemCDSV": 0,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": false,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": false,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": false,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 30,
+    "xepLoai": "Kém",
+    "trangthai": true
+  }
+},
+{
+  "model": "app_nckh9.gvcndanhgia",
+  "pk": 1,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 25,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": false,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": false,
+    "diemCDSV": 0,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": false,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": false,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": false,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 35,
+    "xepLoai": "Yếu",
+    "trangthai": false
+  }
+},
+{
+  "model": "app_nckh9.gvcndanhgia",
+  "pk": 2,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 25,
+    "diemNCKH": 5,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 15,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 5,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": true,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 50,
+    "xepLoai": "Trung bình",
+    "trangthai": false
+  }
+},
+{
+  "model": "app_nckh9.gvcndanhgia",
+  "pk": 3,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 15,
+    "koThamgiaDaydu": true,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": true,
+    "chaphanhDang": true,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 7,
+    "caccapKhenThuong": true,
+    "BCSvotrachnghiem": true,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 84,
+    "xepLoai": "Tốt",
+    "trangthai": false
+  }
+},
+{
+  "model": "app_nckh9.gvcndanhgia",
+  "pk": 4,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 10,
+    "koDungPhao": true,
+    "koDiHocMuon": true,
+    "boThiOlympic": true,
+    "tronHoc": false,
+    "koVPKL": true,
+    "diemCDSV": 5,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": true,
+    "thanhtichHoatDong": 3,
+    "thamgiaTVTS": true,
+    "koThamgiaDaydu2": true,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": true,
+    "giupdoCongDong": true,
+    "gayMatDoanKet": true,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 7,
+    "caccapKhenThuong": true,
+    "BCSvotrachnghiem": true,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 73,
+    "xepLoai": "Khá",
+    "trangthai": false
+  }
+},
+{
+  "model": "app_nckh9.gvcndanhgia",
+  "pk": 5,
+  "fields": {
+    "maSV": 2221050508,
+    "tenSV": "Đoàn Văn Hùng",
+    "lopSV": "CNTT01",
+    "dob": "2004-06-13",
+    "khoaSV": "67",
+    "khoaHoc": 2023,
+    "kqHocTap": 30,
+    "diemNCKH": 0,
+    "koDungPhao": false,
+    "koDiHocMuon": false,
+    "boThiOlympic": false,
+    "tronHoc": false,
+    "koVPKL": false,
+    "diemCDSV": 0,
+    "koThamgiaDaydu": false,
+    "koDeoTheSV": false,
+    "koSHL": false,
+    "dongHPmuon": false,
+    "thamgiaDayDu": false,
+    "thanhtichHoatDong": 0,
+    "thamgiaTVTS": false,
+    "koThamgiaDaydu2": false,
+    "viphamVanHoaSV": false,
+    "chaphanhDang": false,
+    "giupdoCongDong": false,
+    "gayMatDoanKet": false,
+    "dongBHYTmuon": false,
+    "thanhvienBCS": 0,
+    "caccapKhenThuong": false,
+    "BCSvotrachnghiem": false,
+    "anhminhchung1": "",
+    "anhminhchung2": "",
+    "anhminhchung3": "",
+    "anhminhchung4": "",
+    "anhminhchung5": "",
+    "anhminhchung6": "",
+    "anhminhchung7": "",
+    "ghichu1": "",
+    "ghichu2": "",
+    "ghichu3": "",
+    "ghichu4": "",
+    "ghichu5": "",
+    "ghichu6": "",
+    "ghichu7": "",
+    "ghichu8": "",
+    "drl_tongket": 30,
+    "xepLoai": "Kém",
+    "trangthai": false
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 1,
+  "fields": {
+    "title": "Chấm DRL",
+    "dob": "2025-05-13T07:30:08Z",
+    "content": "Chấm DRL",
+    "picture1": "uploads/32f.png",
+    "picture2": "uploads/32f_GWkAST5.png",
+    "picture3": "uploads/32f_JN1c4x2.png",
+    "picture4": "uploads/32f_RZm8JV6.png",
+    "picture5": "uploads/32f_5P9EhSc.png"
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 2,
+  "fields": {
+    "title": "Điểm rèn luyện đã được chấm",
+    "dob": "2025-06-02T08:47:46.593Z",
+    "content": "Giáo viên teacher đã chấm điểm rèn luyện của bạn. Điểm tổng kết: 35 - Xếp loại: Yếu",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 3,
+  "fields": {
+    "title": "Điểm rèn luyện đã được chấm",
+    "dob": "2025-06-02T09:08:20.494Z",
+    "content": "Giáo viên teacher đã chấm điểm rèn luyện của bạn. Điểm tổng kết: 50 - Xếp loại: Trung bình",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 4,
+  "fields": {
+    "title": "Điểm rèn luyện đã được chấm",
+    "dob": "2025-06-02T09:29:13.112Z",
+    "content": "Giáo viên teacher đã chấm điểm rèn luyện của bạn. Điểm tổng kết: 84 - Xếp loại: Tốt",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 5,
+  "fields": {
+    "title": "Điểm rèn luyện đã được chấm",
+    "dob": "2025-06-02T09:39:47.461Z",
+    "content": "Giáo viên teacher đã chấm điểm rèn luyện của bạn. Điểm tổng kết: 73 - Xếp loại: Khá",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.nofitication",
+  "pk": 6,
+  "fields": {
+    "title": "Điểm rèn luyện đã được chấm",
+    "dob": "2025-06-05T09:33:09.108Z",
+    "content": "Giáo viên teacher đã chấm điểm rèn luyện của bạn. Điểm tổng kết: 30 - Xếp loại: Kém",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.privatenofitication",
+  "pk": 1,
+  "fields": {
+    "title": "Đã chấm điểm rèn luyện thành công",
+    "dob": "2025-06-02T08:47:46.596Z",
+    "content": "Bạn đã chấm điểm rèn luyện thành công cho sinh viên Đoàn Văn Hùng - 2221050508. Điểm tổng kết: 35 - Xếp loại: Yếu",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.privatenofitication",
+  "pk": 2,
+  "fields": {
+    "title": "Đã chấm điểm rèn luyện thành công",
+    "dob": "2025-06-02T09:08:20.500Z",
+    "content": "Bạn đã chấm điểm rèn luyện thành công cho sinh viên Đoàn Văn Hùng - 2221050508. Điểm tổng kết: 50 - Xếp loại: Trung bình",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.privatenofitication",
+  "pk": 3,
+  "fields": {
+    "title": "Đã chấm điểm rèn luyện thành công",
+    "dob": "2025-06-02T09:29:13.122Z",
+    "content": "Bạn đã chấm điểm rèn luyện thành công cho sinh viên Đoàn Văn Hùng - 2221050508. Điểm tổng kết: 84 - Xếp loại: Tốt",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.privatenofitication",
+  "pk": 4,
+  "fields": {
+    "title": "Đã chấm điểm rèn luyện thành công",
+    "dob": "2025-06-02T09:39:47.469Z",
+    "content": "Bạn đã chấm điểm rèn luyện thành công cho sinh viên Đoàn Văn Hùng - 2221050508. Điểm tổng kết: 73 - Xếp loại: Khá",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.privatenofitication",
+  "pk": 5,
+  "fields": {
+    "title": "Đã chấm điểm rèn luyện thành công",
+    "dob": "2025-06-05T09:33:09.114Z",
+    "content": "Bạn đã chấm điểm rèn luyện thành công cho sinh viên Đoàn Văn Hùng - 2221050508. Điểm tổng kết: 30 - Xếp loại: Kém",
+    "picture1": "",
+    "picture2": "",
+    "picture3": "",
+    "picture4": "",
+    "picture5": ""
+  }
+},
+{
+  "model": "app_nckh9.studentsreport",
+  "pk": 1,
+  "fields": {
+    "muckhieunai": "khac",
+    "title": "Khiếu nại điểm - activityPoints",
+    "content": "điểm sai ",
+    "created_at": "2025-05-28T10:53:08.410Z",
+    "student": 1,
+    "semester": 1,
+    "status": "pending",
+    "response": null,
+    "evidence": "uploads/reports/123.png"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 1,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-05-22T08:04:18.911Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 2,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-05-22T08:23:42.729Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 3,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-01T08:55:30.423Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 4,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-02T07:32:44.196Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 5,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-02T09:07:54.496Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 6,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-02T09:28:58.071Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 7,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-02T09:33:56.486Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historyactive",
+  "pk": 8,
+  "fields": {
+    "maSV": "2221050508",
+    "time": "2025-06-05T09:32:52.621Z",
+    "name": "Chấm DRL",
+    "action": "Chấm DRL",
+    "status": "Chưa xem",
+    "description": "Chấm điểm rèn luyện học kì 1",
+    "device": "Chrome / Windows",
+    "ip": "192.168.1.100"
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 1,
+  "fields": {
+    "lopSV": "DCCTCT67_08B",
+    "tenSV": "Đoàn Văn Hùng",
+    "maSV": 2221050508,
+    "hocky1": 60,
+    "hocky2": 80,
+    "hocky3": 90,
+    "hocky4": 100,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 2,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 1",
+    "maSV": 100001,
+    "hocky1": 11,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 3,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 2",
+    "maSV": 100002,
+    "hocky1": 68,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 4,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 3",
+    "maSV": 100003,
+    "hocky1": 95,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 5,
+  "fields": {
+    "lopSV": "Lớp KTDL",
+    "tenSV": "Sinh Viên 4",
+    "maSV": 100004,
+    "hocky1": 46,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 6,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 5",
+    "maSV": 100005,
+    "hocky1": 29,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 7,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 6",
+    "maSV": 100006,
+    "hocky1": 79,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 8,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 7",
+    "maSV": 100007,
+    "hocky1": 68,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 9,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 8",
+    "maSV": 100008,
+    "hocky1": 95,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 10,
+  "fields": {
+    "lopSV": "Lớp KTDL",
+    "tenSV": "Sinh Viên 9",
+    "maSV": 100009,
+    "hocky1": 45,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 11,
+  "fields": {
+    "lopSV": "Lớp KTDL",
+    "tenSV": "Sinh Viên 10",
+    "maSV": 100010,
+    "hocky1": 47,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 12,
+  "fields": {
+    "lopSV": "Lớp KTDL",
+    "tenSV": "Sinh Viên 11",
+    "maSV": 100011,
+    "hocky1": 69,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 13,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 12",
+    "maSV": 100012,
+    "hocky1": 51,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 14,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 13",
+    "maSV": 100013,
+    "hocky1": 51,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 15,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 14",
+    "maSV": 100014,
+    "hocky1": 64,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 16,
+  "fields": {
+    "lopSV": "Lớp KTDL",
+    "tenSV": "Sinh Viên 15",
+    "maSV": 100015,
+    "hocky1": 59,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 17,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 16",
+    "maSV": 100016,
+    "hocky1": 82,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 18,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 17",
+    "maSV": 100017,
+    "hocky1": 68,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 19,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 18",
+    "maSV": 100018,
+    "hocky1": 22,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 20,
+  "fields": {
+    "lopSV": "Lớp CNTT2",
+    "tenSV": "Sinh Viên 19",
+    "maSV": 100019,
+    "hocky1": 68,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.historypoint",
+  "pk": 21,
+  "fields": {
+    "lopSV": "Lớp CNTT1",
+    "tenSV": "Sinh Viên 20",
+    "maSV": 100020,
+    "hocky1": 33,
+    "hocky2": null,
+    "hocky3": null,
+    "hocky4": null,
+    "hocky5": null,
+    "hocky6": null,
+    "hocky7": null,
+    "hocky8": null,
+    "hocky9": null,
+    "hocky10": null,
+    "hocky11": null,
+    "hocky12": null,
+    "hocky13": null,
+    "hocky14": null,
+    "hocky15": null,
+    "hocky16": null,
+    "hocky17": null,
+    "hocky18": null,
+    "hocky19": null,
+    "hocky20": null
+  }
+},
+{
+  "model": "app_nckh9.lophoc",
+  "pk": 1,
+  "fields": {
+    "ma_lop": "CNTT01",
+    "ten_lop": "Công nghệ thông tin 01",
+    "khoa": "Công nghệ thông tin",
+    "khoa_hoc": 2022,
+    "giao_vien_chu_nhiem": 1,
+    "si_so_toi_da": 100,
+    "mo_ta": "Lớp chuyên ngành Công nghệ thông tin, đào tạo kỹ sư phần mềm.",
+    "ngay_tao": "2025-05-29T02:04:16.873Z",
+    "ngay_cap_nhat": "2025-05-29T02:04:16.873Z",
+    "hoc_ky_hien_tai": 1
+  }
+},
+{
+  "model": "app_nckh9.hocky",
+  "pk": 1,
+  "fields": {
+    "ma_hoc_ky": "HK_DEFAULT",
+    "ten_hoc_ky": "Học kỳ 1",
+    "nam_hoc": 2022,
+    "hoc_ky": 1,
+    "ngay_bat_dau": "2022-01-01",
+    "ngay_ket_thuc": "2022-06-30",
+    "ngay_bat_dau_danh_gia": "2022-01-01",
+    "ngay_ket_thuc_danh_gia": "2022-06-30",
+    "isActive": false,
+    "created_at": "2025-05-28T10:42:54Z",
+    "updated_at": "2025-05-28T10:50:40.720Z"
+  }
+},
+{
+  "model": "sites.site",
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add admin manage",
+    "content_type": [
+      "app_nckh9",
+      "adminmanage"
+    ],
+    "codename": "add_adminmanage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change admin manage",
+    "content_type": [
+      "app_nckh9",
+      "adminmanage"
+    ],
+    "codename": "change_adminmanage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete admin manage",
+    "content_type": [
+      "app_nckh9",
+      "adminmanage"
+    ],
+    "codename": "delete_adminmanage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view admin manage",
+    "content_type": [
+      "app_nckh9",
+      "adminmanage"
+    ],
+    "codename": "view_adminmanage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add analysts",
+    "content_type": [
+      "app_nckh9",
+      "analysts"
+    ],
+    "codename": "add_analysts"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change analysts",
+    "content_type": [
+      "app_nckh9",
+      "analysts"
+    ],
+    "codename": "change_analysts"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete analysts",
+    "content_type": [
+      "app_nckh9",
+      "analysts"
+    ],
+    "codename": "delete_analysts"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view analysts",
+    "content_type": [
+      "app_nckh9",
+      "analysts"
+    ],
+    "codename": "view_analysts"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add analysts2",
+    "content_type": [
+      "app_nckh9",
+      "analysts2"
+    ],
+    "codename": "add_analysts2"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change analysts2",
+    "content_type": [
+      "app_nckh9",
+      "analysts2"
+    ],
+    "codename": "change_analysts2"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete analysts2",
+    "content_type": [
+      "app_nckh9",
+      "analysts2"
+    ],
+    "codename": "delete_analysts2"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view analysts2",
+    "content_type": [
+      "app_nckh9",
+      "analysts2"
+    ],
+    "codename": "view_analysts2"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add complaint history",
+    "content_type": [
+      "app_nckh9",
+      "complainthistory"
+    ],
+    "codename": "add_complainthistory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change complaint history",
+    "content_type": [
+      "app_nckh9",
+      "complainthistory"
+    ],
+    "codename": "change_complainthistory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete complaint history",
+    "content_type": [
+      "app_nckh9",
+      "complainthistory"
+    ],
+    "codename": "delete_complainthistory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view complaint history",
+    "content_type": [
+      "app_nckh9",
+      "complainthistory"
+    ],
+    "codename": "view_complainthistory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add gvcn danh gia",
+    "content_type": [
+      "app_nckh9",
+      "gvcndanhgia"
+    ],
+    "codename": "add_gvcndanhgia"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change gvcn danh gia",
+    "content_type": [
+      "app_nckh9",
+      "gvcndanhgia"
+    ],
+    "codename": "change_gvcndanhgia"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete gvcn danh gia",
+    "content_type": [
+      "app_nckh9",
+      "gvcndanhgia"
+    ],
+    "codename": "delete_gvcndanhgia"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view gvcn danh gia",
+    "content_type": [
+      "app_nckh9",
+      "gvcndanhgia"
+    ],
+    "codename": "view_gvcndanhgia"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add history active",
+    "content_type": [
+      "app_nckh9",
+      "historyactive"
+    ],
+    "codename": "add_historyactive"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change history active",
+    "content_type": [
+      "app_nckh9",
+      "historyactive"
+    ],
+    "codename": "change_historyactive"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete history active",
+    "content_type": [
+      "app_nckh9",
+      "historyactive"
+    ],
+    "codename": "delete_historyactive"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view history active",
+    "content_type": [
+      "app_nckh9",
+      "historyactive"
+    ],
+    "codename": "view_historyactive"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add history point",
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "codename": "add_historypoint"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change history point",
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "codename": "change_historypoint"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete history point",
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "codename": "delete_historypoint"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view history point",
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "codename": "view_historypoint"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add hoi dong khoa cham diem",
+    "content_type": [
+      "app_nckh9",
+      "hoidongkhoachamdiem"
+    ],
+    "codename": "add_hoidongkhoachamdiem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change hoi dong khoa cham diem",
+    "content_type": [
+      "app_nckh9",
+      "hoidongkhoachamdiem"
+    ],
+    "codename": "change_hoidongkhoachamdiem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete hoi dong khoa cham diem",
+    "content_type": [
+      "app_nckh9",
+      "hoidongkhoachamdiem"
+    ],
+    "codename": "delete_hoidongkhoachamdiem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view hoi dong khoa cham diem",
+    "content_type": [
+      "app_nckh9",
+      "hoidongkhoachamdiem"
+    ],
+    "codename": "view_hoidongkhoachamdiem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add homepage manager",
+    "content_type": [
+      "app_nckh9",
+      "homepagemanager"
+    ],
+    "codename": "add_homepagemanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change homepage manager",
+    "content_type": [
+      "app_nckh9",
+      "homepagemanager"
+    ],
+    "codename": "change_homepagemanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete homepage manager",
+    "content_type": [
+      "app_nckh9",
+      "homepagemanager"
+    ],
+    "codename": "delete_homepagemanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view homepage manager",
+    "content_type": [
+      "app_nckh9",
+      "homepagemanager"
+    ],
+    "codename": "view_homepagemanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add info student",
+    "content_type": [
+      "app_nckh9",
+      "infostudent"
+    ],
+    "codename": "add_infostudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change info student",
+    "content_type": [
+      "app_nckh9",
+      "infostudent"
+    ],
+    "codename": "change_infostudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete info student",
+    "content_type": [
+      "app_nckh9",
+      "infostudent"
+    ],
+    "codename": "delete_infostudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view info student",
+    "content_type": [
+      "app_nckh9",
+      "infostudent"
+    ],
+    "codename": "view_infostudent"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add info teacher",
+    "content_type": [
+      "app_nckh9",
+      "infoteacher"
+    ],
+    "codename": "add_infoteacher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change info teacher",
+    "content_type": [
+      "app_nckh9",
+      "infoteacher"
+    ],
+    "codename": "change_infoteacher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete info teacher",
+    "content_type": [
+      "app_nckh9",
+      "infoteacher"
+    ],
+    "codename": "delete_infoteacher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view info teacher",
+    "content_type": [
+      "app_nckh9",
+      "infoteacher"
+    ],
+    "codename": "view_infoteacher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add kaira chat bot",
+    "content_type": [
+      "app_nckh9",
+      "kairachatbot"
+    ],
+    "codename": "add_kairachatbot"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change kaira chat bot",
+    "content_type": [
+      "app_nckh9",
+      "kairachatbot"
+    ],
+    "codename": "change_kairachatbot"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete kaira chat bot",
+    "content_type": [
+      "app_nckh9",
+      "kairachatbot"
+    ],
+    "codename": "delete_kairachatbot"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view kaira chat bot",
+    "content_type": [
+      "app_nckh9",
+      "kairachatbot"
+    ],
+    "codename": "view_kairachatbot"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add login",
+    "content_type": [
+      "app_nckh9",
+      "login"
+    ],
+    "codename": "add_login"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change login",
+    "content_type": [
+      "app_nckh9",
+      "login"
+    ],
+    "codename": "change_login"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete login",
+    "content_type": [
+      "app_nckh9",
+      "login"
+    ],
+    "codename": "delete_login"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view login",
+    "content_type": [
+      "app_nckh9",
+      "login"
+    ],
+    "codename": "view_login"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add nofitication",
+    "content_type": [
+      "app_nckh9",
+      "nofitication"
+    ],
+    "codename": "add_nofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change nofitication",
+    "content_type": [
+      "app_nckh9",
+      "nofitication"
+    ],
+    "codename": "change_nofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete nofitication",
+    "content_type": [
+      "app_nckh9",
+      "nofitication"
+    ],
+    "codename": "delete_nofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view nofitication",
+    "content_type": [
+      "app_nckh9",
+      "nofitication"
+    ],
+    "codename": "view_nofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add nofitication manager",
+    "content_type": [
+      "app_nckh9",
+      "nofiticationmanager"
+    ],
+    "codename": "add_nofiticationmanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change nofitication manager",
+    "content_type": [
+      "app_nckh9",
+      "nofiticationmanager"
+    ],
+    "codename": "change_nofiticationmanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete nofitication manager",
+    "content_type": [
+      "app_nckh9",
+      "nofiticationmanager"
+    ],
+    "codename": "delete_nofiticationmanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view nofitication manager",
+    "content_type": [
+      "app_nckh9",
+      "nofiticationmanager"
+    ],
+    "codename": "view_nofiticationmanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add pending students",
+    "content_type": [
+      "app_nckh9",
+      "pendingstudents"
+    ],
+    "codename": "add_pendingstudents"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change pending students",
+    "content_type": [
+      "app_nckh9",
+      "pendingstudents"
+    ],
+    "codename": "change_pendingstudents"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete pending students",
+    "content_type": [
+      "app_nckh9",
+      "pendingstudents"
+    ],
+    "codename": "delete_pendingstudents"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view pending students",
+    "content_type": [
+      "app_nckh9",
+      "pendingstudents"
+    ],
+    "codename": "view_pendingstudents"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add private nofitication",
+    "content_type": [
+      "app_nckh9",
+      "privatenofitication"
+    ],
+    "codename": "add_privatenofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change private nofitication",
+    "content_type": [
+      "app_nckh9",
+      "privatenofitication"
+    ],
+    "codename": "change_privatenofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete private nofitication",
+    "content_type": [
+      "app_nckh9",
+      "privatenofitication"
+    ],
+    "codename": "delete_privatenofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view private nofitication",
+    "content_type": [
+      "app_nckh9",
+      "privatenofitication"
+    ],
+    "codename": "view_privatenofitication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add rules",
+    "content_type": [
+      "app_nckh9",
+      "rules"
+    ],
+    "codename": "add_rules"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change rules",
+    "content_type": [
+      "app_nckh9",
+      "rules"
+    ],
+    "codename": "change_rules"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete rules",
+    "content_type": [
+      "app_nckh9",
+      "rules"
+    ],
+    "codename": "delete_rules"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view rules",
+    "content_type": [
+      "app_nckh9",
+      "rules"
+    ],
+    "codename": "view_rules"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add sinh vien tdg",
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "codename": "add_sinhvientdg"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change sinh vien tdg",
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "codename": "change_sinhvientdg"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete sinh vien tdg",
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "codename": "delete_sinhvientdg"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view sinh vien tdg",
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "codename": "view_sinhvientdg"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add students report",
+    "content_type": [
+      "app_nckh9",
+      "studentsreport"
+    ],
+    "codename": "add_studentsreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change students report",
+    "content_type": [
+      "app_nckh9",
+      "studentsreport"
+    ],
+    "codename": "change_studentsreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete students report",
+    "content_type": [
+      "app_nckh9",
+      "studentsreport"
+    ],
+    "codename": "delete_studentsreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view students report",
+    "content_type": [
+      "app_nckh9",
+      "studentsreport"
+    ],
+    "codename": "view_studentsreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add teacher manager",
+    "content_type": [
+      "app_nckh9",
+      "teachermanager"
+    ],
+    "codename": "add_teachermanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change teacher manager",
+    "content_type": [
+      "app_nckh9",
+      "teachermanager"
+    ],
+    "codename": "change_teachermanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete teacher manager",
+    "content_type": [
+      "app_nckh9",
+      "teachermanager"
+    ],
+    "codename": "delete_teachermanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view teacher manager",
+    "content_type": [
+      "app_nckh9",
+      "teachermanager"
+    ],
+    "codename": "view_teachermanager"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add ranking",
+    "content_type": [
+      "app_nckh9",
+      "ranking"
+    ],
+    "codename": "add_ranking"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change ranking",
+    "content_type": [
+      "app_nckh9",
+      "ranking"
+    ],
+    "codename": "change_ranking"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete ranking",
+    "content_type": [
+      "app_nckh9",
+      "ranking"
+    ],
+    "codename": "delete_ranking"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view ranking",
+    "content_type": [
+      "app_nckh9",
+      "ranking"
+    ],
+    "codename": "view_ranking"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add async export task",
+    "content_type": [
+      "app_nckh9",
+      "asyncexporttask"
+    ],
+    "codename": "add_asyncexporttask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change async export task",
+    "content_type": [
+      "app_nckh9",
+      "asyncexporttask"
+    ],
+    "codename": "change_asyncexporttask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete async export task",
+    "content_type": [
+      "app_nckh9",
+      "asyncexporttask"
+    ],
+    "codename": "delete_asyncexporttask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view async export task",
+    "content_type": [
+      "app_nckh9",
+      "asyncexporttask"
+    ],
+    "codename": "view_asyncexporttask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add async sync task",
+    "content_type": [
+      "app_nckh9",
+      "asyncsynctask"
+    ],
+    "codename": "add_asyncsynctask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change async sync task",
+    "content_type": [
+      "app_nckh9",
+      "asyncsynctask"
+    ],
+    "codename": "change_asyncsynctask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete async sync task",
+    "content_type": [
+      "app_nckh9",
+      "asyncsynctask"
+    ],
+    "codename": "delete_asyncsynctask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view async sync task",
+    "content_type": [
+      "app_nckh9",
+      "asyncsynctask"
+    ],
+    "codename": "view_asyncsynctask"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add hoc ky",
+    "content_type": [
+      "app_nckh9",
+      "hocky"
+    ],
+    "codename": "add_hocky"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change hoc ky",
+    "content_type": [
+      "app_nckh9",
+      "hocky"
+    ],
+    "codename": "change_hocky"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete hoc ky",
+    "content_type": [
+      "app_nckh9",
+      "hocky"
+    ],
+    "codename": "delete_hocky"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view hoc ky",
+    "content_type": [
+      "app_nckh9",
+      "hocky"
+    ],
+    "codename": "view_hocky"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add blacklisted token",
+    "content_type": [
+      "token_blacklist",
+      "blacklistedtoken"
+    ],
+    "codename": "add_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change blacklisted token",
+    "content_type": [
+      "token_blacklist",
+      "blacklistedtoken"
+    ],
+    "codename": "change_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete blacklisted token",
+    "content_type": [
+      "token_blacklist",
+      "blacklistedtoken"
+    ],
+    "codename": "delete_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view blacklisted token",
+    "content_type": [
+      "token_blacklist",
+      "blacklistedtoken"
+    ],
+    "codename": "view_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add outstanding token",
+    "content_type": [
+      "token_blacklist",
+      "outstandingtoken"
+    ],
+    "codename": "add_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change outstanding token",
+    "content_type": [
+      "token_blacklist",
+      "outstandingtoken"
+    ],
+    "codename": "change_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete outstanding token",
+    "content_type": [
+      "token_blacklist",
+      "outstandingtoken"
+    ],
+    "codename": "delete_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view outstanding token",
+    "content_type": [
+      "token_blacklist",
+      "outstandingtoken"
+    ],
+    "codename": "view_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add association",
+    "content_type": [
+      "social_django",
+      "association"
+    ],
+    "codename": "add_association"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change association",
+    "content_type": [
+      "social_django",
+      "association"
+    ],
+    "codename": "change_association"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete association",
+    "content_type": [
+      "social_django",
+      "association"
+    ],
+    "codename": "delete_association"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view association",
+    "content_type": [
+      "social_django",
+      "association"
+    ],
+    "codename": "view_association"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add code",
+    "content_type": [
+      "social_django",
+      "code"
+    ],
+    "codename": "add_code"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change code",
+    "content_type": [
+      "social_django",
+      "code"
+    ],
+    "codename": "change_code"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete code",
+    "content_type": [
+      "social_django",
+      "code"
+    ],
+    "codename": "delete_code"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view code",
+    "content_type": [
+      "social_django",
+      "code"
+    ],
+    "codename": "view_code"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add nonce",
+    "content_type": [
+      "social_django",
+      "nonce"
+    ],
+    "codename": "add_nonce"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change nonce",
+    "content_type": [
+      "social_django",
+      "nonce"
+    ],
+    "codename": "change_nonce"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete nonce",
+    "content_type": [
+      "social_django",
+      "nonce"
+    ],
+    "codename": "delete_nonce"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view nonce",
+    "content_type": [
+      "social_django",
+      "nonce"
+    ],
+    "codename": "view_nonce"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user social auth",
+    "content_type": [
+      "social_django",
+      "usersocialauth"
+    ],
+    "codename": "add_usersocialauth"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user social auth",
+    "content_type": [
+      "social_django",
+      "usersocialauth"
+    ],
+    "codename": "change_usersocialauth"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user social auth",
+    "content_type": [
+      "social_django",
+      "usersocialauth"
+    ],
+    "codename": "delete_usersocialauth"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user social auth",
+    "content_type": [
+      "social_django",
+      "usersocialauth"
+    ],
+    "codename": "view_usersocialauth"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add partial",
+    "content_type": [
+      "social_django",
+      "partial"
+    ],
+    "codename": "add_partial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change partial",
+    "content_type": [
+      "social_django",
+      "partial"
+    ],
+    "codename": "change_partial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete partial",
+    "content_type": [
+      "social_django",
+      "partial"
+    ],
+    "codename": "delete_partial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view partial",
+    "content_type": [
+      "social_django",
+      "partial"
+    ],
+    "codename": "view_partial"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "add_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "change_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "delete_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "view_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "add_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "change_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "delete_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "view_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "add_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "change_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "delete_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "view_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "add_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "change_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "delete_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "view_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "add_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "change_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "delete_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "view_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "add_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "change_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "delete_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "view_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add application",
+    "content_type": [
+      "oauth2_provider",
+      "application"
+    ],
+    "codename": "add_application"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change application",
+    "content_type": [
+      "oauth2_provider",
+      "application"
+    ],
+    "codename": "change_application"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete application",
+    "content_type": [
+      "oauth2_provider",
+      "application"
+    ],
+    "codename": "delete_application"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view application",
+    "content_type": [
+      "oauth2_provider",
+      "application"
+    ],
+    "codename": "view_application"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add access token",
+    "content_type": [
+      "oauth2_provider",
+      "accesstoken"
+    ],
+    "codename": "add_accesstoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change access token",
+    "content_type": [
+      "oauth2_provider",
+      "accesstoken"
+    ],
+    "codename": "change_accesstoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete access token",
+    "content_type": [
+      "oauth2_provider",
+      "accesstoken"
+    ],
+    "codename": "delete_accesstoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view access token",
+    "content_type": [
+      "oauth2_provider",
+      "accesstoken"
+    ],
+    "codename": "view_accesstoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add grant",
+    "content_type": [
+      "oauth2_provider",
+      "grant"
+    ],
+    "codename": "add_grant"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change grant",
+    "content_type": [
+      "oauth2_provider",
+      "grant"
+    ],
+    "codename": "change_grant"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete grant",
+    "content_type": [
+      "oauth2_provider",
+      "grant"
+    ],
+    "codename": "delete_grant"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view grant",
+    "content_type": [
+      "oauth2_provider",
+      "grant"
+    ],
+    "codename": "view_grant"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add refresh token",
+    "content_type": [
+      "oauth2_provider",
+      "refreshtoken"
+    ],
+    "codename": "add_refreshtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change refresh token",
+    "content_type": [
+      "oauth2_provider",
+      "refreshtoken"
+    ],
+    "codename": "change_refreshtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete refresh token",
+    "content_type": [
+      "oauth2_provider",
+      "refreshtoken"
+    ],
+    "codename": "delete_refreshtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view refresh token",
+    "content_type": [
+      "oauth2_provider",
+      "refreshtoken"
+    ],
+    "codename": "view_refreshtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add id token",
+    "content_type": [
+      "oauth2_provider",
+      "idtoken"
+    ],
+    "codename": "add_idtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change id token",
+    "content_type": [
+      "oauth2_provider",
+      "idtoken"
+    ],
+    "codename": "change_idtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete id token",
+    "content_type": [
+      "oauth2_provider",
+      "idtoken"
+    ],
+    "codename": "delete_idtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view id token",
+    "content_type": [
+      "oauth2_provider",
+      "idtoken"
+    ],
+    "codename": "view_idtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Lớp học",
+    "content_type": [
+      "app_nckh9",
+      "lophoc"
+    ],
+    "codename": "add_lophoc"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Lớp học",
+    "content_type": [
+      "app_nckh9",
+      "lophoc"
+    ],
+    "codename": "change_lophoc"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Lớp học",
+    "content_type": [
+      "app_nckh9",
+      "lophoc"
+    ],
+    "codename": "delete_lophoc"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Lớp học",
+    "content_type": [
+      "app_nckh9",
+      "lophoc"
+    ],
+    "codename": "view_lophoc"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Đợt chấm điểm rèn luyện",
+    "content_type": [
+      "app_nckh9",
+      "chamdrl"
+    ],
+    "codename": "add_chamdrl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Đợt chấm điểm rèn luyện",
+    "content_type": [
+      "app_nckh9",
+      "chamdrl"
+    ],
+    "codename": "change_chamdrl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Đợt chấm điểm rèn luyện",
+    "content_type": [
+      "app_nckh9",
+      "chamdrl"
+    ],
+    "codename": "delete_chamdrl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Đợt chấm điểm rèn luyện",
+    "content_type": [
+      "app_nckh9",
+      "chamdrl"
+    ],
+    "codename": "view_chamdrl"
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ca6eysuQ9XBN8PCVEQipmE$FaZbmYsMbhnaewpMkrJi5LGYQVoqOtusQATmW9Fn23U=",
+    "last_login": "2025-06-05T09:33:24.469Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-05-22T07:45:29.450Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Tzbd8TgBVY1PDCH2a9aMmt$YUvif6hBymAsvdwEiCUip4D339DwbRNQfjFLtqgsFZs=",
+    "last_login": "2025-06-05T09:32:20.196Z",
+    "is_superuser": false,
+    "username": "2221050508",
+    "first_name": "Hùng",
+    "last_name": "Đoàn",
+    "email": "2221050508@student.humg.edu.vn",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-22T07:47:24Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$YkRVZLxPU9BUoZFMm9K51p$lco8hqXoTOV/4YX4Vpj3851n1QPcUQYO80nFny34Nr4=",
+    "last_login": "2025-06-05T09:33:02.445Z",
+    "is_superuser": false,
+    "username": "teacher",
+    "first_name": "teacher",
+    "last_name": "teacher",
+    "email": "teacher@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-28T09:16:50Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-05-22T07:47:24.977Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "2221050508",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-05-22T07:47:37.761Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "2221050508",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-05-22T07:48:29.547Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "object_id": "1",
+    "object_repr": "HistoryPoint object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-05-22T08:02:55.982Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "infostudent"
+    ],
+    "object_id": "1",
+    "object_repr": "2221050508 - Đoàn Văn Hùng",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-05-22T08:03:41.894Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "nofitication"
+    ],
+    "object_id": "1",
+    "object_repr": "Nofitication object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-05-22T08:24:56.695Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "historypoint"
+    ],
+    "object_id": "1",
+    "object_repr": "HistoryPoint object (1)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Hocky4\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-05-28T09:16:50.753Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "teacher",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-05-28T09:17:41.829Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "3",
+    "object_repr": "teacher",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-05-28T09:21:45.996Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "infoteacher"
+    ],
+    "object_id": "1",
+    "object_repr": "12345678 - teacher",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-05-28T10:50:40.726Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "hocky"
+    ],
+    "object_id": "1",
+    "object_repr": "Học kỳ 1 - 2022",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-05-30T23:48:45.478Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "object_id": "1",
+    "object_repr": "SinhVienTDG object (1)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-06-01T08:54:43.435Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "object_id": "2",
+    "object_repr": "SinhVienTDG object (2)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-06-02T08:18:58.627Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app_nckh9",
+      "sinhvientdg"
+    ],
+    "object_id": "3",
+    "object_repr": "SinhVienTDG object (3)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+}
+]

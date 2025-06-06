@@ -1,0 +1,875 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giảng viên - Chấm lại điểm rèn luyện</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hệ thống QL Điểm RL</h2>
+            <p>Giáo viên</p>
+        </div>  
+        <div class="menu">
+            <a href="{% url 'app_nckh9:teacher_dashboard' %}" class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </a>
+            <!-- <a href="{% url 'app_nckh9:teacher_class_management' %}" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Quản lý lớp học</span>
+            </a> -->
+            <a href="{% url 'app_nckh9:teacher_score_management' %}" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Quản lý điểm rèn luyện</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_analytics' %}" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Thống kê & Báo cáo</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_notifications' %}" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <span>Quản lý thông báo</span>
+            </a>
+            <a href="{% url 'app_nckh9:teacher_activity_history' %}" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử hoạt động</span>
+            </a>
+            <!-- <a href="{% url 'app_nckh9:teacher_ai_assistant' %}" class="menu-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Hỗ trợ</span>
+            </a> -->
+        
+          
+        </div>
+    </div>    
+<div class="main-content">
+    <div class="header">
+        <div class="header-left">
+            <h1>Chấm lại điểm rèn luyện sinh viên</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span>{{ teacher.tenGV }}</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <!-- <div class="card-header">
+            <h2>Thông tin sinh viên</h2>
+            <a href="{% url 'app_nckh9:teacher_score_management_detail' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div> -->
+        <div class="card-body">
+            <div class="student-info">
+                <div class="info-row">
+                    <span class="info-label">Mã SV:</span>
+                    <span class="info-value">{{ student.maSV }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Họ tên:</span>
+                    <span class="info-value">{{ student.tenSV }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Lớp:</span>
+                    <span class="info-value">{{ student.lopSV }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Khoa:</span>
+                    <span class="info-value">{{ student.khoaSV }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Điểm hiện tại:</span>
+                    <span class="info-value">
+                        <span class="badge {% if student.xepLoai == 'Xuất sắc' %}badge-success
+                            {% elif student.xepLoai == 'Tốt' %}badge-primary
+                            {% elif student.xepLoai == 'Khá' %}badge-info
+                            {% elif student.xepLoai == 'Trung bình' %}badge-warning
+                            {% else %}badge-danger{% endif %}">
+                            {{ student.drl_tongket|default:0 }} điểm - {{ student.xepLoai|default:'Chưa xếp loại' }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                
+                <div class="rules-content">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div class="section-title-content">
+                                I. Đánh giá về ý thức và kết quả học tập
+                                <span class="points">(0 - 40 điểm)</span>
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div class="rule-section">
+                        <div class="sub-section">
+                            <h4>1. Kết quả học tập:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="kqHocTap" value="30" {% if student.kqHocTap == 30 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm TBCHT ≥ 3,6</span>
+                                    <span class="points">30đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="kqHocTap" value="25" {% if student.kqHocTap == 25 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm TBCHT từ 3,2 đến 3,59</span>
+                                    <span class="points">25đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="kqHocTap" value="20" {% if student.kqHocTap == 20 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm TBCHT từ 2,5 đến 3,19</span>
+                                    <span class="points">20đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="kqHocTap" value="15" {% if student.kqHocTap == 15 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm TBCHT từ 2,0 đến 2,49</span>
+                                    <span class="points">15đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="kqHocTap" value="10" {% if student.kqHocTap == 10 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm TBCHT < 2,0</span>
+                                    <span class="points">10đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>2. Nghiên cứu khoa học, thi Olympic:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemNCKH" value="10" {% if student.diemNCKH == 10 %}checked{% endif %}>
+                                    <span class="checkbox-label">Đạt giải NCKH cấp Bộ</span>
+                                    <span class="points">10đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemNCKH" value="8" {% if student.diemNCKH == 8 %}checked{% endif %}>
+                                    <span class="checkbox-label">Đạt giải NCKH cấp Trường</span>
+                                    <span class="points">8đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemNCKH" value="6" {% if student.diemNCKH == 6 %}checked{% endif %}>
+                                    <span class="checkbox-label">Đạt giải NCKH khác</span>
+                                    <span class="points">6đ</span>
+                                </label>    
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemNCKH" value="5" {% if student.diemNCKH == 5 %}checked{% endif %}>
+                                    <span class="checkbox-label">Tham gia NCKH</span>
+                                    <span class="points">5đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>3. Việc thực hiện nội quy học tập, quy chế thi, kiểm tra:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koDungPhao" {% if student.koDungPhao %}checked{% endif %}>
+                                    <span class="checkbox-label">Không vi phạm quy chế thi, kiểm tra</span>
+                                    <span class="points">3đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koDiHocMuon" {% if student.koDiHocMuon %}checked{% endif %}>
+                                    <span class="checkbox-label">Đi học đầy đủ, đúng giờ</span>
+                                    <span class="points">2đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3>4. Phần trừ điểm</h3>
+                            <div class="checkbox-list negative">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="boThiOlympic" {% if student.boThiOlympic %}checked{% endif %}>
+                                    <span class="checkbox-label">Đã đăng ký, nhưng bỏ không tham tham gia nghiên cứu khoa học, thi Olympic, Robocon và các cuộc thi khác tương đương</span>
+                                    <span class="points">-15đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="tronHoc" {% if student.tronHoc %}checked{% endif %}>
+                                    <span class="checkbox-label">Không đi học, đi không đúng giờ</span>
+                                    <span class="points">-2đ/buổi</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-check"></i>
+                            <div class="section-title-content">
+                                II. Đánh giá về ý thức và kết quả chấp hành nội quy, quy chế của Trường
+                                <span class="points">(0 - 25 điểm)</span>
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div class="rule-section">
+                        <div class="sub-section">
+                            <h4>a) Chấp hành nội quy:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koVPKL" {% if student.koVPKL %}checked{% endif %}>
+                                    <span class="checkbox-label">Chấp hành tốt nội quy, quy chế của Trường, không vi phạm kỷ luật</span>
+                                    <span class="points">10đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>b) Kết quả Tuần sinh hoạt công dân sinh viên:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemCDSV" value="15" {% if student.diemCDSV == 15 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm bài thu hoạch ≥ 90</span>
+                                    <span class="points">15đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemCDSV" value="10" {% if student.diemCDSV == 10 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm bài thu hoạch từ 65 đến 89 điểm</span>
+                                    <span class="points">10đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="diemCDSV" value="5" {% if student.diemCDSV == 5 %}checked{% endif %}>
+                                    <span class="checkbox-label">Điểm bài thu hoạch < 65 điểm</span>
+                                    <span class="points">5đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3>2. Phần trừ điểm</h3>
+                            <div class="checkbox-list negative">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koThamgiaDaydu" {% if student.koThamgiaDaydu %}checked{% endif %}>
+                                    <span class="checkbox-label">Không tham gia học tập đầy đủ, nghiêm túc nghị quyết, nội quy, quy chế, tuần sinh hoạt công dân sinh viên</span>
+                                    <span class="points">-10đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koDeoTheSV" {% if student.koDeoTheSV %}checked{% endif %}>
+                                    <span class="checkbox-label">Không đeo thẻ sinh viên trong khuôn viên Trường</span>
+                                    <span class="points">-5đ/lần</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koSHL" {% if student.koSHL %}checked{% endif %}>
+                                    <span class="checkbox-label">Không tham gia các buổi sinh hoạt lớp, hỏp, hội nghị, giao ban, tập huấn và các hoạt động khác khi Nhà trường yêu cầu</span>
+                                    <span class="points">-5đ/lần</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="dongHPmuon" {% if student.dongHPmuon %}checked{% endif %}>
+                                    <span class="checkbox-label">Đóng học phí không đúng quy định trong học kỳ</span>
+                                    <span class="points">-10đ</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-users"></i>
+                            <div class="section-title-content">
+                                III. Đánh giá về ý thức và kết quả tham gia các hoạt động chính trị, xã hội, văn hoá, văn nghệ, thể thao
+                                <span class="points">(0 - 20 điểm)</span>
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div class="rule-section">
+                        <div class="sub-section">
+                            <h4>a) Tham gia hoạt động:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="thamgiaDayDu" {% if student.thamgiaDayDu %}checked{% endif %}>
+                                    <span class="checkbox-label">Tham gia đầy đủ các hoạt động, sinh hoạt do Trường, Khoa, Lớp, Đoàn TN, Hội SV tổ chức</span>
+                                    <span class="points">13đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>b) Thành tích hoạt động:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="thanhtichHoatDong" value="5" {% if student.thanhtichHoatDong == 5 %}checked{% endif %}>
+                                    <span class="checkbox-label">Cấp tỉnh, thành phố trở lên</span>
+                                    <span class="points">5đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="thanhtichHoatDong" value="3" {% if student.thanhtichHoatDong == 3 %}checked{% endif %}>
+                                    <span class="checkbox-label">Cấp trường</span>
+                                    <span class="points">3đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>c) Hoạt động tư vấn:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="thamgiaTVTS" {% if student.thamgiaTVTS %}checked{% endif %}>
+                                    <span class="checkbox-label">Tham gia các hoạt động tư vấn tuyển sinh</span>
+                                    <span class="points">2đ/lần</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3>2. Phần trừ điểm</h3>
+                            <div class="checkbox-list negative">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="koThamgiaDaydu2" {% if student.koThamgiaDaydu2 %}checked{% endif %}>
+                                    <span class="checkbox-label">Không tham gia hoạt động, sinh hoạt khi được phân công</span>
+                                    <span class="points">-5đ/lần</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="viphamVanHoaSV" {% if student.viphamVanHoaSV %}checked{% endif %}>
+                                    <span class="checkbox-label">Vi phạm Quy định về văn hoá học đường cho sinh viên</span>
+                                    <span class="points">-5đ/lần</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-heart"></i>
+                            <div class="section-title-content">
+                                IV. Đánh giá về phẩm chất công dân và quan hệ cộng đồng
+                                <span class="points">(0 - 15 điểm)</span>
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div class="rule-section">
+                        <div class="sub-section">
+                            <h4>a) Ý thức công dân:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="chaphanhDang" {% if student.chaphanhDang %}checked{% endif %}>
+                                    <span class="checkbox-label">Tích cực tham gia học tập, tìm hiểu và chấp hành tốt chủ trương của Đảng, chính sách, pháp luật của Nhà nước</span>
+                                    <span class="points">10đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>b) Hoạt động cộng đồng:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="giupdoCongDong" {% if student.giupdoCongDong %}checked{% endif %}>
+                                    <span class="checkbox-label">Tích cực tham gia các hoạt động nhân đạo, từ thiện vì cộng đồng; phong trào thanh niên tình nguyện</span>
+                                    <span class="points">5đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3>2. Phần trừ điểm</h3>
+                            <div class="checkbox-list negative">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="gayMatDoanKet" {% if student.gayMatDoanKet %}checked{% endif %}>
+                                    <span class="checkbox-label">Gây mất đoàn kết trong tập thể lớp</span>
+                                    <span class="points">-5đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="dongBHYTmuon" {% if student.dongBHYTmuon %}checked{% endif %}>
+                                    <span class="checkbox-label">Không đóng BHYT đúng hạn</span>
+                                    <span class="points">-20đ</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-user-tie"></i>
+                            <div class="section-title-content">
+                                V. Đánh giá về ý thức và kết quả tham gia phụ trách lớp, các đoàn thể tổ chức khác trong Trường
+                                <span class="points">(0 - 10 điểm)</span>
+                            </div>
+                        </h2>
+                        <p class="note">Mục này dành cho SV là thành viên Ban cán sự lớp quản lý sinh viên; cán bộ Đoàn TN, Hội SV</p>
+                    </div>
+
+                    <div class="rule-section">
+                        <div class="sub-section">
+                            <h4>a) Chức vụ và hoàn thành nhiệm vụ:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="thanhvienBCS" value="7" {% if student.thanhvienBCS == 7 %}checked{% endif %}>
+                                    <span class="checkbox-label">Lớp trưởng, Phó Bí thư Liên chi, Bí thư Chi đoàn</span>
+                                    <span class="points">7đ</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="thanhvienBCS" value="5" {% if student.thanhvienBCS == 5 %}checked{% endif %}>
+                                    <span class="checkbox-label">Lớp phó, Phó Bí thư Chi đoàn, Hội trưởng Hội SV</span>
+                                    <span class="points">5đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h4>b) Khen thưởng:</h4>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="caccapKhenThuong" {% if student.caccapKhenThuong %}checked{% endif %}>
+                                    <span class="checkbox-label">Được các cấp khen thưởng</span>
+                                    <span class="points">3đ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3>2. Phần trừ điểm</h3>
+                            <div class="checkbox-list negative">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="BCSvotrachnghiem" {% if student.BCSvotrachnghiem %}checked{% endif %}>
+                                    <span class="checkbox-label">Là thành viên Ban cán sự lớp quản lý sinh viên; cán bộ Đoàn TN, Hội SV thiếu trách nhiệm</span>
+                                    <span class="points">-5đ/lần</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <div class="total-points">
+                        <span>Tổng điểm:</span>
+                        <span id="total-score">{{ student.drl_tongket|default:0 }}</span>/100
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Lưu thay đổi
+                        </button>
+                        <a href="{% url 'app_nckh9:teacher_score_management_detail' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Hủy
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .header h1 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin: 0;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+    }
+    
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+    
+    .card-header {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .card-header h2 {
+        margin: 0;
+        font-size: 18px;
+        color: #2c3e50;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .student-info {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    
+    .info-row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    .info-label {
+        font-weight: bold;
+        width: 120px;
+    }
+    
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        font-size: 18px;
+    }
+    
+    .section-title i {
+        color: #3498db;
+        font-size: 20px;
+    }
+    
+    .section-title-content {
+        flex: 1;
+    }
+    
+    .points {
+        color: #e74c3c;
+        font-weight: 500;
+    }
+    
+    .rule-section {
+        padding: 20px;
+    }
+    
+    .sub-section {
+        margin-bottom: 25px;
+    }
+    
+    .sub-section h3, .sub-section h4 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+    
+    .checkbox-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .checkbox-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+    
+    .checkbox-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .checkbox-label {
+        flex: 1;
+    }
+    
+    .negative .checkbox-item {
+        color: #e74c3c;
+    }
+    
+    .negative .points {
+        color: #e74c3c;
+    }
+    
+    .summary-section {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .total-points {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    .total-points span:last-child {
+        color: #e74c3c;
+    }
+    
+    .form-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+    
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+    
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+    }
+    
+    .note {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin-top: 5px;
+        font-style: italic;
+    }
+    
+    .badge {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+    }
+    
+    .badge-success {
+        background-color: #2ecc71;
+    }
+    
+    .badge-primary {
+        background-color: #3498db;
+    }
+    
+    .badge-info {
+        background-color: #1abc9c;
+    }
+    
+    .badge-warning {
+        background-color: #f39c12;
+    }
+    
+    .badge-danger {
+        background-color: #e74c3c;
+    }
+    
+    .rules-content {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    .badge-success { background-color: #28a745; color: white; }
+    .badge-primary { background-color: #007bff; color: white; }
+    .badge-info { background-color: #17a2b8; color: white; }
+    .badge-warning { background-color: #ffc107; color: #212529; }
+    .badge-danger { background-color: #dc3545; color: white; }
+</style> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the form and total score element
+        const form = document.querySelector('form');
+        const totalScoreElement = document.getElementById('total-score');
+        
+        if (!form || !totalScoreElement) {
+            console.error('Required elements not found');
+            return;
+        }
+
+        // Function to safely get integer value from input
+        function getInputValue(selector) {
+            const element = document.querySelector(selector);
+            if (!element) return 0;
+            const value = element.value || element.getAttribute('value') || '0';
+            return parseInt(value, 10) || 0;
+        }
+
+        // Function to safely get checked radio value
+        function getRadioValue(name) {
+            const checkedRadio = document.querySelector(`input[name="${name}"]:checked`);
+            return checkedRadio ? parseInt(checkedRadio.value, 10) || 0 : 0;
+        }
+
+        // Function to check if checkbox is checked and get its value
+        function getCheckboxValue(name) {
+            const checkbox = document.querySelector(`input[name="${name}"]`);
+            if (!checkbox || !checkbox.checked) return 0;
+            
+            // First check if the checkbox has a value attribute
+            if (checkbox.value && checkbox.value !== 'on') {
+                return parseInt(checkbox.value, 10) || 0;
+            }
+            
+            // If no value attribute, extract from the points span
+            const label = checkbox.closest('.checkbox-item');
+            if (label) {
+                const pointsSpan = label.querySelector('.points');
+                if (pointsSpan) {
+                    // Extract the number from text like "10đ" or "-5đ"
+                    const pointsText = pointsSpan.textContent.trim();
+                    const pointsMatch = pointsText.match(/(-?\d+)đ/);
+                    if (pointsMatch && pointsMatch[1]) {
+                        return parseInt(pointsMatch[1], 10) || 0;
+                    }
+                }
+            }
+            
+            return 0;
+        }
+
+        
+        function calculateTotal() {
+            try {
+                let total = 0;
+                
+                // Academic performance (I.1)
+                total += getRadioValue('kqHocTap');
+                
+                // Research points (I.2)
+                total += getRadioValue('diemNCKH');
+                
+                // Union activities (I.3)
+                total += getRadioValue('diemCDSV');
+                
+                // Activity achievements (I.4)
+                total += getRadioValue('thanhtichHoatDong');
+                
+                // Class board member (I.5)
+                total += getRadioValue('thanhvienBCS');
+                
+                // Positive points (II.1 - II.5)
+                total += getCheckboxValue('koDungPhao');
+                total += getCheckboxValue('koDiHocMuon');
+                total += getCheckboxValue('koVPKL');
+                total += getCheckboxValue('thamgiaDayDu');
+                total += getCheckboxValue('thamgiaTVTS');
+                total += getCheckboxValue('chaphanhDang');
+                total += getCheckboxValue('giupdoCongDong');
+                total += getCheckboxValue('caccapKhenThuong');
+                
+                // Negative points (II.6 - II.10)
+                total += getCheckboxValue('boThiOlympic');
+                total += getCheckboxValue('tronHoc');
+                total += getCheckboxValue('koThamgiaDaydu');
+                total += getCheckboxValue('koDeoTheSV');
+                total += getCheckboxValue('koSHL');
+                total += getCheckboxValue('dongHPmuon');
+                total += getCheckboxValue('koThamgiaDaydu2');
+                total += getCheckboxValue('viphamVanHoaSV');
+                total += getCheckboxValue('gayMatDoanKet');
+                total += getCheckboxValue('dongBHYTmuon');
+                total += getCheckboxValue('BCSvotrachnghiem');
+                
+                // Update total display
+                totalScoreElement.textContent = total;
+                
+                // Update classification badge
+                updateClassificationBadge(total);
+                
+            } catch (error) {
+                console.error('Error calculating total:', error);
+            }
+        }
+        
+        // Function to update classification badge based on total score
+        function updateClassificationBadge(total) {
+            const badge = document.querySelector('.info-value .badge');
+            if (!badge) return;
+            
+            // Remove all badge classes
+            badge.className = 'badge ';
+            
+            // Add appropriate class based on score
+            if (total >= 90) {
+                badge.classList.add('badge-success');
+                badge.textContent = `${total} điểm - Xuất sắc`;
+            } else if (total >= 80) {
+                badge.classList.add('badge-primary');
+                badge.textContent = `${total} điểm - Tốt`;
+            } else if (total >= 65) {
+                badge.classList.add('badge-info');
+                badge.textContent = `${total} điểm - Khá`;
+            } else if (total >= 50) {
+                badge.classList.add('badge-warning');
+                badge.textContent = `${total} điểm - Trung bình`;
+            } else {
+                badge.classList.add('badge-danger');
+                badge.textContent = `${total} điểm - Yếu`;
+            }
+        }
+        
+        // Add event listeners to all form inputs
+        const inputs = form.querySelectorAll('input[type="radio"], input[type="checkbox"], input[type="number"]');
+        inputs.forEach(input => {
+            input.addEventListener('change', calculateTotal);
+            // For radio buttons, also listen for click events to ensure immediate feedback
+            if (input.type === 'radio') {
+                input.addEventListener('click', calculateTotal);
+            }
+        });
+        
+        // Calculate initial total
+        calculateTotal();
+    });
+</script>
+
+</body>
+</html>

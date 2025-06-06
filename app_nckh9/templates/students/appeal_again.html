@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khiếu nại điểm rèn luyện - Sinh viên</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="{% static 'css/student.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hệ thống QL Điểm RL</h2>
+            <p>Sinh viên</p>
+        </div>
+        <div class="menu">
+            <a href="{% url 'app_nckh9:student_dashboard' %}" class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_score_rating' %}" class="menu-item">
+                <i class="fas fa-edit"></i>
+                <span>Chấm điểm rèn luyện</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_show_point' %}" class="menu-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Xem điểm rèn luyện</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_notifications' %}" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <span>Quản lý thông báo</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_appeal_again' %}" class="menu-item">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Khiếu nại điểm</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_historic_fix' %}" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử chỉnh sửa</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_rank' %}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                <span>Xếp hạng rèn luyện</span>
+            </a>
+            <a href="{% url 'app_nckh9:student_ai_assistant' %}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                <span>AI hỗ trợ</span>
+            </a>
+          
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <h1>Khiếu nại điểm rèn luyện</h1>
+            </div>
+            <div class="header-right">
+               <div class="user-info">
+                    <a style="color: black;" href="{% url 'app_nckh9:logout' %}">
+                        <span style="color: black;">{{ student.tenSV }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="appeal-container">
+                <div class="appeal-header">
+                    <h2>Gửi đơn khiếu nại điểm rèn luyện</h2>
+                    <p>Vui lòng điền đầy đủ thông tin bên dưới</p>
+                </div>
+
+                <form id="complaintForm" class="appeal-form" method="POST" action="{% url 'app_nckh9:student_appeal_again' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="semesterSelect">Học kỳ:</label>
+                        <select id="semesterSelect" name="semester" required>
+                            <option value="">Chọn học kỳ</option>
+                            {% for semester in semesters %}
+                            <option value="{{ semester.id }}">Học kỳ {{ semester.hocKy }} năm {{ semester.namHoc }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complaintType">Mục khiếu nại:</label>
+                        <select id="complaintType" name="complaintType" required>
+                            <option value="">Chọn mục khiếu nại</option>
+                            <option value="activityPoints">Điểm hoạt động</option>
+                            <option value="teacherEvaluation">Điểm đánh giá của giáo viên</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complaintReason">Lý do khiếu nại:</label>
+                        <textarea id="complaintReason" name="complaintReason" rows="8" required maxlength="1000"></textarea>
+                        <div class="character-count">
+                            <span id="currentLength">0</span>/<span id="maxLength">1000</span> ký tự
+                        </div>
+                    </div>
+
+                    <div class="form-group file-upload-container">
+                        <label for="attachment">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            Tệp đính kèm minh chứng
+                        </label>
+                        <input type="file" id="attachment" name="attachment" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Hủy bỏ</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Gửi khiếu nại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Character counter for complaint reason
+            const complaintReason = document.getElementById('complaintReason');
+            const currentLength = document.getElementById('currentLength');
+            const maxLength = document.getElementById('maxLength');
+            
+            complaintReason.addEventListener('input', function() {
+                currentLength.textContent = this.value.length;
+                if (this.value.length > 1000) {
+                    currentLength.style.color = 'red';
+                } else {
+                    currentLength.style.color = '';
+                }
+            });
+            
+            // File upload preview
+            const fileInput = document.getElementById('attachment');
+            const fileList = document.getElementById('fileList');
+            
+            fileInput.addEventListener('change', function() {
+                fileList.innerHTML = '';
+                
+                if (this.files.length > 0) {
+                    for (let i = 0; i < this.files.length; i++) {
+                        const file = this.files[i];
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
+                        
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        
+                        // Check file size
+                        const maxSize = 5; // Default max size in MB
+                        const isValidSize = fileSize <= maxSize;
+                        
+                        let fileInfoHtml = '<div class="file-info"><i class="fas fa-file"></i>';
+                        fileInfoHtml += '<span class="file-name">' + file.name + '</span>';
+                        fileInfoHtml += '<span class="file-size ' + (isValidSize ? '' : 'text-danger') + '">' + fileSize + ' MB</span></div>';
+                        
+                        if (!isValidSize) {
+                            fileInfoHtml += '<div class="file-error">Kích thước file vượt quá giới hạn</div>';
+                        }
+                        
+                        fileItem.innerHTML = fileInfoHtml;
+                        fileList.appendChild(fileItem);
+                    }
+                }
+            });
+            
+            // Form reset function
+            window.resetForm = function() {
+                document.getElementById('complaintForm').reset();
+                fileList.innerHTML = '';
+                currentLength.textContent = '0';
+            };
+            
+            // Form validation
+            document.getElementById('complaintForm').addEventListener('submit', function(e) {
+                const semester = document.getElementById('semesterSelect').value;
+                const complaintType = document.getElementById('complaintType').value;
+                const reason = complaintReason.value;
+                
+                if (!semester || !complaintType || !reason) {
+                    e.preventDefault();
+                    alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+                    return false;
+                }
+                
+                // Check file size
+                const files = fileInput.files;
+                if (files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        const fileSize = files[i].size / 1024 / 1024; // Convert to MB
+                        if (fileSize > 5) { // 5MB limit
+                            e.preventDefault();
+                            alert('File ' + files[i].name + ' vượt quá kích thước cho phép (5MB)');
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            });
+        });
+    </script>
+</body>
+
+</html>

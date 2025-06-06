@@ -1,0 +1,995 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy tắc chấm điểm - Hệ thống Trang chủ</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="{% static 'css/admin.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .edit-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .edit-points {
+            width: 80px;
+            margin-right: 5px;
+        }
+
+        .btn-save-rule,
+        .btn-cancel-rule {
+            padding: 3px 8px;
+            margin-right: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .btn-save-rule {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancel-rule {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .message.success {
+            background-color: #4CAF50;
+        }
+
+        .message.error {
+            background-color: #f44336;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .rule-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .rule-name {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .rule-points {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .rule-edit {
+            margin-left: auto;
+        }
+
+        .btn-edit-rule {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #2196F3;
+        }
+
+        .btn-add-rule {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .rule-group {
+            margin-bottom: 20px;
+        }
+
+        .rule-group-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .global-actions {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-restore-defaults {
+            padding: 8px 15px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .btn-add-section {
+            padding: 8px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+            border-radius: 5px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-body form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .btn-submit {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .btn-cancel {
+            padding: 8px 15px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Hệ thống QL Điểm RL</h2>
+            <p>Giáo vụ khoa</p>
+        </div>
+        <div class="menu">
+            <a href="{% url 'app_nckh9:admin_dashboard' %}" class="menu-item">
+                <i class="fas fa-tasks"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_scoring_rules' %}" class="menu-item active">
+                <i class="fas fa-cogs"></i>
+                <span>Quy tắc chấm điểm</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_batch_approval' %}" class="menu-item">
+                <i class="fas fa-check-double"></i>
+                <span>Phê duyệt hàng loạt</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_statistics' %}" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Thống kê & Báo cáo</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_sync' %}" class="menu-item">
+                <i class="fas fa-sync"></i>
+                <span>Đồng bộ dữ liệu</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_user_management' %}" class="menu-item">
+                <i class="fas fa-users-cog"></i>
+                <span>Quản lý người dùng</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_notifications' %}" class="menu-item">
+                <i class="fas fa-newspaper"></i>
+                <span>Quản lý thông báo</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_activity_history' %}" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử hoạt động</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_backup_restore' %}" class="menu-item">
+                <i class="fas fa-database"></i>
+                <span>Sao lưu & Khôi phục</span>
+            </a>
+            <a href="{% url 'app_nckh9:admin_ai_assistant' %}" class="menu-item">
+                <i class="fas fa-robot"></i>
+                <span>AI Hỗ trợ</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <h1>Quy tắc chấm điểm</h1>
+            </div>
+            <div class="header-right">
+                <div class="global-actions">
+                    <button class="btn-restore-defaults">
+                        <i class="fas fa-undo"></i> Khôi phục mặc định
+                    </button>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name">
+                        {{ request.user.username }}
+                    </div>
+                    <a href="{% url 'app_nckh9:logout' %}" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="message-container" id="messageContainer"></div>
+
+        <div class="rules-content">
+            {% for section_key, section_data in rules_by_section.items %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title">
+                        {% if section_key == 'ythuc_hoctap' %}
+                        <i class="fas fa-graduation-cap"></i>
+                        <div class="section-title-content">
+                            I. Đánh giá về ý thức và kết quả học tập
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 30 điểm)</span>
+                        {% elif section_key == 'ythuc_kyluat' %}
+                        <i class="fas fa-gavel"></i>
+                        <div class="section-title-content">
+                            II. Đánh giá về ý thức chấp hành nội quy, quy chế
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 25 điểm)</span>
+                        {% elif section_key == 'hoatdong_doanthethechao' %}
+                        <i class="fas fa-users"></i>
+                        <div class="section-title-content">
+                            III. Đánh giá về hoạt động đoàn thể, thể thao
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 20 điểm)</span>
+                        {% elif section_key == 'quanhe_congdong' %}
+                        <i class="fas fa-hands-helping"></i>
+                        <div class="section-title-content">
+                            IV. Đánh giá về quan hệ cộng đồng
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 15 điểm)</span>
+                        {% elif section_key == 'phutrachlop' %}
+                        <i class="fas fa-user-tie"></i>
+                        <div class="section-title-content">
+                            V. Đánh giá về phụ trách lớp, đoàn thể
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 10 điểm)</span>
+                        {% endif %}
+                    </h2>
+                    <div class="header-actions">
+                        <button class="btn-add-rule" data-section="{{ section_key }}">
+                            <i class="fas fa-plus"></i> Thêm quy tắc
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {% for point_type, point_name in point_types %}
+                    <div class="rule-section">
+                        <h3>{% if point_type == 'cong' %}1. Phần cộng điểm{% else %}2. Phần trừ điểm{% endif %}</h3>
+
+                        {% regroup section_data.rules|dictsort:"sub_section" by sub_section as subsection_list %}
+                        {% for subsection in subsection_list %}
+                        <div class="sub-section">
+                            <h4>{{ subsection.grouper }}</h4>
+                            <ul class="score-list{% if point_type == 'tru' %} negative{% endif %}">
+                                {% for rule in subsection.list %}
+                                {% if rule.point_type == point_type %}
+                                <li class="rule-item" data-rule-id="{{ rule.id }}">
+                                    <div class="rule-name">{{ rule.rule_name }}</div>
+                                    <div class="rule-points">{{ rule.points }}</div>
+                                    <div class="rule-edit">
+                                        <button class="btn-edit-rule" data-rule-id="{{ rule.id }}"><i
+                                                class="fas fa-edit"></i></button>
+                                        <button class="btn-delete-rule" data-rule-id="{{ rule.id }}"><i
+                                                class="fas fa-trash"></i></button>
+                                    </div>
+                                    <div class="edit-controls" style="display: none;">
+                                        <input type="text" class="edit-points" value="{{ rule.points }}">
+                                        <button class="btn-save-rule"><i class="fas fa-check"></i></button>
+                                        <button class="btn-cancel-rule"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <div class="add-rule-section">
+                        <button class="btn-add-rule" data-section="{{ section_key }}">
+                            <i class="fas fa-plus"></i> Thêm quy tắc mới
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Modal thêm quy tắc mới -->
+        <div id="addRuleModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Thêm quy tắc mới</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="addRuleForm">
+                        <div class="form-group">
+                            <label for="section">Mục đánh giá</label>
+                            <select id="section" name="section" required>
+                                <option value="ythuc_hoctap">I. Đánh giá về ý thức và kết quả học tập</option>
+                                <option value="ythuc_kyluat">II. Đánh giá về ý thức chấp hành nội quy, quy chế</option>
+                                <option value="hoatdong_doanthethechao">III. Đánh giá về hoạt động đoàn thể, thể thao
+                                </option>
+                                <option value="quanhe_congdong">IV. Đánh giá về quan hệ cộng đồng</option>
+                                <option value="phutrachlop">V. Đánh giá về phụ trách lớp, đoàn thể</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sub_section">Tiểu mục</label>
+                            <input type="text" id="sub_section" name="sub_section" required
+                                placeholder="Ví dụ: a) Kết quả học tập">
+                        </div>
+                        <div class="form-group">
+                            <label for="rule_name">Tên quy tắc</label>
+                            <input type="text" id="rule_name" name="rule_name" required
+                                placeholder="Ví dụ: Điểm trung bình học kỳ đạt 3.6 - 4.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="point_type">Loại điểm</label>
+                            <select id="point_type" name="point_type" required>
+                                <option value="cong">Cộng điểm</option>
+                                <option value="tru">Trừ điểm</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="points">Điểm</label>
+                            <input type="text" id="points" name="points" required placeholder="Ví dụ: +20 hoặc -5/lần">
+                        </div>
+                        <div class="form-group">
+                            <label for="max_points">Điểm tối đa</label>
+                            <input type="number" id="max_points" name="max_points"
+                                placeholder="Để trống nếu không có giới hạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="order">Thứ tự hiển thị</label>
+                            <input type="number" id="order" name="order" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Ghi chú</label>
+                            <textarea id="note" name="note" rows="3"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" id="btnCancelAdd">Hủy</button>
+                            <button type="submit" class="btn-submit">Thêm quy tắc</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal xác nhận xóa -->
+        <div id="deleteConfirmModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Xác nhận xóa</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa quy tắc này không?</p>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="btnCancelDelete">Hủy</button>
+                        <button type="button" class="btn-submit" id="btnConfirmDelete">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal xác nhận khôi phục mặc định -->
+        <div id="restoreDefaultsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Xác nhận khôi phục mặc định</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Hành động này sẽ xóa tất cả quy tắc hiện tại và khôi phục về các quy tắc mặc định. Bạn có chắc
+                        chắn muốn tiếp tục không?</p>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="btnCancelRestore">Hủy</button>
+                        <button type="button" class="btn-submit" id="btnConfirmRestore">Khôi phục</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chỉ giữ lại một phần rules-content -->
+
+        {% regroup section_data.rules by sub_section as subsection_list %}
+
+        {% for point_type, point_name in point_types %}
+        <div class="rule-section">
+            <h3>{% if point_type == 'cong' %}1. Phần cộng điểm{% else %}2. Phần trừ điểm{% endif %}</h3>
+
+            {% for subsection in subsection_list %}
+            {% with subsection.list|dictsort:"point_type"|first as first_item %}
+            {% if first_item.point_type == point_type %}
+            <div class="sub-section">
+                <h4>{{ subsection.grouper }}:</h4>
+                {% for rule in subsection.list %}
+                {% if rule.point_type == point_type %}
+                {% if rule.note %}
+                <p class="note">{{ rule.note }}</p>
+                {% endif %}
+                <ul class="score-list">
+                    <li class="editable-rule" data-rule-id="{{ rule.id }}">
+                        <span class="rule-name">{{ rule.rule_name }}:</span>
+                        <span class="points" data-original="{{ rule.points }}">{{ rule.points }}đ</span>
+                        <div class="edit-controls" style="display: none;">
+                            <input type="text" class="edit-points" value="{{ rule.points }}">
+                            <button class="btn-save-rule"><i class="fas fa-check"></i></button>
+                            <button class="btn-cancel-rule"><i class="fas fa-times"></i></button>
+                        </div>
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+
+    <!-- <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div class="section-title-content">
+                            II. Đánh giá về ý thức và kết quả chấp hành nội quy, quy chế của Trường
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 25 điểm)</span>
+                    </h2>
+                </div>
+
+                <div class="rule-section">
+                    <h3>1. Phần cộng điểm</h3>
+
+                    <div class="sub-section">
+                        <h4>a) Chấp hành nội quy:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Chấp hành tốt nội quy, quy chế của Trường, không vi phạm kỷ luật:</span>
+                                <span class="points" data-original="+10">+10đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>b) Kết quả Tuần sinh hoạt công dân sinh viên:</h4>
+                        <p class="note">Có giá trị trong năm học 2023-2024</p>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Điểm bài thu hoạch ≥ 90:</span>
+                                <span class="points" data-original="+15">+15đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Điểm bài thu hoạch từ 65 đến 89 điểm:</span>
+                                <span class="points" data-original="+10">+10đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Điểm bài thu hoạch từ 50 đến 65 điểm:</span>
+                                <span class="points" data-original="+5">+5đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h3>2. Phần trừ điểm</h3>
+                        <ul class="score-list negative">
+                            <li class="editable-rule">
+                                <span class="rule-name">Không tham gia học tập đầy đủ, nghiêm túc nghị quyết, nội quy, quy chế, tuần sinh hoạt công dân sinh viên:</span>
+                                <div class="card-body">
+                                    {% for sub_section, rules in section_data.items %}
+                                    <div class="rule-group">
+                                        <h3 class="rule-group-title">{{ sub_section }}</h3>
+                                        
+                                        {% for rule in rules %}
+                                        <div class="rule-item" data-rule-id="{{ rule.id }}">
+                                            <div class="rule-name">{{ rule.rule_name }}</div>
+                                            <div class="rule-points">{{ rule.points }}</div>
+                                            <div class="rule-edit">
+                                                <button class="btn-edit-rule" data-rule-id="{{ rule.id }}"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                            <div class="edit-controls" style="display: none;">
+                                                <input type="text" class="edit-points" value="{{ rule.points }}">
+                                                <button class="btn-save-rule"><i class="fas fa-check"></i></button>
+                                                <button class="btn-cancel-rule"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <span class="points" data-original="-10">-10đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Không đeo thẻ sinh viên trong khuôn viên Trường:</span>
+                                <span class="points" data-original="-5">-5đ/lần</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Không tham gia các buổi sinh hoạt lớp, họp, hội nghị, giao ban, tập huấn và các hoạt động khác khi Nhà trường yêu cầu:</span>
+                                <span class="points" data-original="-5">-5đ/lần</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Đóng học phí không đúng quy định trong học kỳ:</span>
+                                <span class="points" data-original="-10">-10đ</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i>
+                        <div class="section-title-content">
+                            III. Đánh giá về ý thức và kết quả tham gia các hoạt động chính trị, xã hội, văn hoá, văn nghệ, thể thao, phòng chống các tệ nạn xã hội
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 20 điểm)</span>
+                    </h2>
+                    <div class="header-actions">
+                    </div>
+                </div>
+
+                <div class="rule-section">
+                    <h3>1. Phần cộng điểm</h3>
+                    
+                    <div class="sub-section">
+                        <h4>a) Tham gia hoạt động:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Tham gia đầy đủ các hoạt động, sinh hoạt do Trường, Khoa, Lớp, Đoàn TN, Hội SV tổ chức:</span>
+                                <span class="points" data-original="+13">+13đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>b) Thành tích hoạt động:</h4>
+                        <p class="note">Lấy mức khen thưởng cao nhất - có minh chứng kèm theo</p>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Cấp Trường:</span>
+                                <span class="points" data-original="+3">+3đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Cấp tỉnh, thành phố trở lên:</span>
+                                <span class="points" data-original="+5">+5đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>c) Hoạt động tư vấn:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Tham gia các hoạt động tư vấn tuyển sinh (có xác nhận của phòng QHCC&DN):</span>
+                                <span class="points" data-original="+2">+2đ/lần</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h3>2. Phần trừ điểm</h3>
+                        <ul class="score-list negative">
+                            <li class="editable-rule">
+                                <span class="rule-name">Không tham gia hoạt động, sinh hoạt khi được phân công:</span>
+                                <span class="points" data-original="-5">-5đ/lần</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Vi phạm Quy định về văn hoá học đường cho sinh viên:</span>
+                                <span class="points" data-original="-5">-5đ/lần</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-heart"></i>
+                        <div class="section-title-content">
+                            IV. Đánh giá về phẩm chất công dân và quan hệ công đồng
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 15 điểm)</span>
+                    </h2>
+                    <div class="header-actions">
+                    </div>
+                </div>
+
+                <div class="rule-section">
+                    <h3>1. Phần cộng điểm</h3>
+
+                    <div class="sub-section">
+                        <h4>a) Ý thức công dân:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Tích cực tham gia học tập, tìm hiểu và chấp hành tốt chủ trương của Đảng, chính sách, pháp luật của Nhà nước:</span>
+                                <span class="points" data-original="+10">+10đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>b) Hoạt động cộng đồng:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Tích cực tham gia các hoạt động nhân đạo, từ thiện vì cộng đồng; phong trào thanh niên tình nguyện; phong trào giúp đỡ nhân dân và bạn bè khi gặp thiên tai, khó khăn, hoạn nạn (có minh chứng kèm theo):</span>
+                                <span class="points" data-original="+5">+5đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h3>2. Phần trừ điểm</h3>
+                        <ul class="score-list negative">
+                            <li class="editable-rule">
+                                <span class="rule-name">Gây mất đoàn kết trong tập thể lớp:</span>
+                                <span class="points" data-original="-5">-5đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Không đóng BHYT đúng hạn:</span>
+                                <span class="points" data-original="-20">-20đ</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-tie"></i>
+                        <div class="section-title-content">
+                            V. Đánh giá về ý thức và kết quả tham gia phụ trách lớp, các đoàn thể tổ chức khác trong Trường
+                        </div>
+                        <span class="points">(Tổng điểm: 0 - 10 điểm)</span>
+                    </h2>
+                    <p class="note">Mục này dành cho SV là thành viên Ban cán sự lớp quản lý sinh viên; cán bộ Đoàn TN, Hội SV</p>
+                    <div class="header-actions">
+                    </div>
+                </div>
+
+                <div class="rule-section">
+                    <h3>1. Phần cộng điểm</h3>
+
+                    <div class="sub-section">
+                        <h4>a) Chức vụ và hoàn thành nhiệm vụ:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Lớp trưởng, Phó Bí thư Liên chi, Bí thư Chi đoàn:</span>
+                                <span class="points" data-original="+7">+7đ</span>
+                            </li>
+                            <li class="editable-rule">
+                                <span class="rule-name">Lớp phó, Phó Bí thư Chi đoàn, Hội trưởng Hội SV:</span>
+                                <span class="points" data-original="+5">+5đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>b) Khen thưởng:</h4>
+                        <ul class="score-list">
+                            <li class="editable-rule">
+                                <span class="rule-name">Được các cấp khen thưởng (có minh chứng kèm theo):</span>
+                                <span class="points" data-original="+3">+3đ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h3>2. Phần trừ điểm</h3>
+                        <ul class="score-list negative">
+                            <li class="editable-rule">
+                                <span class="rule-name">Là thành viên Ban cán sự lớp quản lý sinh viên; cán bộ Đoàn TN, Hội SV thiếu trách nhiệm (bị GVCN hoặc cấp có thẩm quyền kỉ luật bằng văn bản):</span>
+                                <span class="points" data-original="-5">-5đ/lần</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+    </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // Hiển thị thông báo
+            function showMessage(message, type) {
+                const messageElement = $('<div class="message ' + type + '">' + message + '</div>');
+                $('#messageContainer').append(messageElement);
+
+                // Tự động ẩn thông báo sau 3 giây
+                setTimeout(function () {
+                    messageElement.fadeOut(500, function () {
+                        $(this).remove();
+                    });
+                }, 3000);
+            }
+
+            // Xử lý nút chỉnh sửa quy tắc
+            $(document).on('click', '.btn-edit-rule', function () {
+                const ruleItem = $(this).closest('.rule-item');
+                ruleItem.find('.rule-points').hide();
+                ruleItem.find('.rule-edit').hide();
+                ruleItem.find('.edit-controls').show();
+            });
+
+            // Xử lý nút hủy chỉnh sửa
+            $(document).on('click', '.btn-cancel-rule', function () {
+                const ruleItem = $(this).closest('.rule-item');
+                ruleItem.find('.rule-points').show();
+                ruleItem.find('.rule-edit').show();
+                ruleItem.find('.edit-controls').hide();
+            });
+
+            // Xử lý nút lưu chỉnh sửa
+            $(document).on('click', '.btn-save-rule', function () {
+                const ruleItem = $(this).closest('.rule-item');
+                const ruleId = ruleItem.data('rule-id');
+                const newPoints = ruleItem.find('.edit-points').val();
+
+                $.ajax({
+                    url: '{% url "app_nckh9:admin_scoring_rules" %}',
+                    type: 'POST',
+                    data: {
+                        'action': 'update',
+                        'rule_id': ruleId,
+                        'points': newPoints,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            ruleItem.find('.rule-points').text(newPoints);
+                            ruleItem.find('.rule-points').show();
+                            ruleItem.find('.rule-edit').show();
+                            ruleItem.find('.edit-controls').hide();
+                            showMessage('Cập nhật điểm thành công!', 'success');
+                        } else {
+                            showMessage('Lỗi: ' + response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        showMessage('Đã xảy ra lỗi khi cập nhật điểm.', 'error');
+                    }
+                });
+            });
+
+            // Xử lý nút xóa quy tắc
+            $(document).on('click', '.btn-delete-rule', function () {
+                const ruleId = $(this).data('rule-id');
+                $('#deleteConfirmModal').data('rule-id', ruleId).show();
+            });
+
+            // Xử lý nút xác nhận xóa
+            $('#btnConfirmDelete').click(function () {
+                const ruleId = $('#deleteConfirmModal').data('rule-id');
+
+                $.ajax({
+                    url: '{% url "app_nckh9:admin_scoring_rules" %}',
+                    type: 'POST',
+                    data: {
+                        'action': 'delete',
+                        'rule_id': ruleId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('[data-rule-id="' + ruleId + '"]').remove();
+                            $('#deleteConfirmModal').hide();
+                            showMessage('Xóa quy tắc thành công!', 'success');
+                        } else {
+                            showMessage('Lỗi: ' + response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        showMessage('Đã xảy ra lỗi khi xóa quy tắc.', 'error');
+                    }
+                });
+            });
+
+            // Xử lý nút thêm quy tắc
+            $('.btn-add-rule').click(function () {
+                const section = $(this).data('section');
+                $('#section').val(section);
+                $('#addRuleModal').show();
+            });
+
+            // Xử lý form thêm quy tắc
+            $('#addRuleForm').submit(function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    'action': 'create',
+                    'section': $('#section').val(),
+                    'sub_section': $('#sub_section').val(),
+                    'rule_name': $('#rule_name').val(),
+                    'point_type': $('#point_type').val(),
+                    'points': $('#points').val(),
+                    'max_points': $('#max_points').val() || null,
+                    'order': $('#order').val(),
+                    'note': $('#note').val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                };
+
+                $.ajax({
+                    url: '{% url "app_nckh9:admin_scoring_rules" %}',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#addRuleModal').hide();
+                            $('#addRuleForm')[0].reset();
+                            showMessage('Thêm quy tắc thành công! Trang sẽ được tải lại.', 'success');
+                            // Tải lại trang sau 1 giây để hiển thị quy tắc mới
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            showMessage('Lỗi: ' + response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        showMessage('Đã xảy ra lỗi khi thêm quy tắc.', 'error');
+                    }
+                });
+            });
+
+            // Xử lý nút khôi phục mặc định
+            $('.btn-restore-defaults').click(function () {
+                $('#restoreDefaultsModal').show();
+            });
+
+            // Xử lý nút xác nhận khôi phục mặc định
+            $('#btnConfirmRestore').click(function () {
+                $.ajax({
+                    url: '{% url "app_nckh9:admin_scoring_rules" %}',
+                    type: 'POST',
+                    data: {
+                        'action': 'restore_defaults',
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            $('#restoreDefaultsModal').hide();
+                            showMessage('Khôi phục quy tắc mặc định thành công! Trang sẽ được tải lại.', 'success');
+                            // Tải lại trang sau 1 giây để hiển thị quy tắc mặc định
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            showMessage('Lỗi: ' + response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        showMessage('Đã xảy ra lỗi khi khôi phục quy tắc mặc định.', 'error');
+                    }
+                });
+            });
+
+            // Đóng modal khi nhấn nút đóng hoặc nút hủy
+            $('.close, #btnCancelAdd, #btnCancelDelete, #btnCancelRestore').click(function () {
+                $('.modal').hide();
+            });
+
+            // Đóng modal khi nhấn bên ngoài modal
+            $(window).click(function (e) {
+                if ($(e.target).hasClass('modal')) {
+                    $('.modal').hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

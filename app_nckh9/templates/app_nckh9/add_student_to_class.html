@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<div class="container mt-4">
+        <h2 class="mb-4">Thêm sinh viên vào lớp {{ lop_hoc.ten_lop }}</h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <p class="text-muted">Sĩ số hiện tại: {{ lop_hoc.so_luong_sv_hien_tai }}/{{ lop_hoc.si_so_toi_da }}</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.student.label_tag }}
+                        {{ form.student }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm sinh viên</button>
+                    <a href="{% url 'app_nckh9:lop_hoc_list' %}" class="btn btn-secondary">Quay lại</a>
+                </form>
+            </div>
+        </div>
+    </div>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
