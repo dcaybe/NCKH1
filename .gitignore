@@ -1,4 +1,5 @@
 # Python
+<<<<<<< HEAD
 __pycache__/
 *.py[cod]
 *$py.class
@@ -78,3 +79,41 @@ token.txt
 # Temporary files
 temp_*
 *.tmp
+=======
+*.log
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Cache
+cache/
+.cache/
+*.pkl
+*.npy
+*.db
+*.index
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# Model files
+model2vec/
+*.bin
+*.safetensors
+
+# Database
+*.sqlite3
+
+# Media
+media/uploads/
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0

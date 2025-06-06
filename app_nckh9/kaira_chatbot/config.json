@@ -1,19 +1,34 @@
 {
+<<<<<<< HEAD
     "doc_folder": "app_nckh9/kaira_chatbot/doc/",
     "model_folder": "app_nckh9/kaira_chatbot/model2vec/",
     "model_name": "sentence-transformers/all-MiniLM-L6-v2",
     "cache_dir": "app_nckh9/kaira_chatbot/cache/",
+=======
+    "doc_folder": "doc/",
+    "model_folder": "model2vec/",
+    "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+    "cache_dir": "cache/",
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
     "top_k": 5,
     "chunk_size": 800,
     "min_text_length": 30,
     "max_workers": 8,
     "faiss_nlist": 10,
+<<<<<<< HEAD
     "conversation_db": "app_nckh9/kaira_chatbot/cache/conversations.db",
+=======
+    "conversation_db": "cache/conversations.db",
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
     "max_context_messages": 5,
     "llm_cache_size": 1000,
     "batch_size": 64,
     "embedding_cache_size": 10000,
+<<<<<<< HEAD
     "embedding_cache_file": "app_nckh9/kaira_chatbot/cache/embedding_cache.pkl",
+=======
+    "embedding_cache_file": "cache/embedding_cache.pkl",
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
     "retry_attempts": 3,
     "retry_delay": 1
 }

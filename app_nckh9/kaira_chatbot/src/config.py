@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 def load_config() -> Dict[str, Any]:
     """Load hoặc tạo file config.json với cấu hình mặc định"""
+<<<<<<< HEAD
     current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # kaira_chatbot folder
     
     default_config = {
@@ -19,17 +20,34 @@ def load_config() -> Dict[str, Any]:
         "model_folder": os.path.join(current_dir, "model"),
         "model_name": "sentence-transformers/all-MiniLM-L6-v2",
         "cache_dir": os.path.join(current_dir, "cache"),
+=======
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    default_config = {
+        "doc_folder": os.path.join(current_dir, "doc/"),
+        "model_folder": os.path.join(current_dir, "model/"),
+        "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+        "cache_dir": os.path.join(current_dir, "cache/"),
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
         "top_k": 5,
         "chunk_size": 800,
         "min_text_length": 30,
         "max_workers": 8,
         "faiss_nlist": 10,
+<<<<<<< HEAD
         "conversation_db": os.path.join(current_dir, "cache", "conversations.db"),
+=======
+        "conversation_db": os.path.join(current_dir, "cache/conversations.db"),
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
         "max_context_messages": 5,
         "llm_cache_size": 1000,
         "batch_size": 64,
         "embedding_cache_size": 10000,
+<<<<<<< HEAD
         "embedding_cache_file": os.path.join(current_dir, "cache", "embedding_cache.pkl")
+=======
+        "embedding_cache_file": os.path.join(current_dir, "cache/embedding_cache.pkl")
+>>>>>>> f0e8f8c39c14ffc86b56d927597dbb4357bbdec0
     }
     
     config_path = os.path.join(current_dir, 'config.json')
